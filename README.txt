@@ -1,18 +1,17 @@
-LEARNING LIFE — LOADING SCREEN STARTER
+LEARNING LIFE — LOADING SCREEN v1.1
 
-Files:
-- index.html          Loading screen structure
-- styles.css          Responsive beach theme styling
-- app.js              Animated demo progress (5.2 seconds)
-- assets/loading-artwork.webp  Cropped artwork from the supplied reference
+This is a standalone responsive loading screen for Android, iPhone, and tablet browsers.
 
-PREVIEW
-Open index.html in a browser. No build tools or internet connection are required.
+IMPORTANT — UPLOAD THE WHOLE FOLDER CONTENTS:
+Keep this exact structure in the GitHub Pages repository root:
+  index.html
+  styles.css
+  app.js
+  assets/
+    loading-artwork.webp
 
-IMPORTANT
-This is the first standalone screen only. It does not yet load the rest of Learning Life.
-The progress animation is a demonstration. When the app is connected, replace the demo
-progress cycle in app.js with actual app initialization events. The screen dispatches
-window event "learninglife:ready" when the demo reaches 100%.
+Do not upload only index.html. The artwork is a separate file and must remain inside the assets folder.
 
-The artwork is derived from the reference image supplied in this conversation.
+The image is now an actual <img> element rather than a CSS background. This makes missing artwork easier to detect and avoids the previous negative stacking issue.
+
+The progress bar is currently a demo animation lasting about 5.2 seconds. It is not yet connected to the real Learning Life app initialization.

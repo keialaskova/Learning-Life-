@@ -6,25 +6,19 @@
   <meta name="theme-color" content="#9bd4f5">
   <meta name="description" content="Learning Life — Your Daily Life Companion">
   <title>Learning Life</title>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <main class="loading-screen" role="status" aria-live="polite" aria-label="Loading Learning Life">
-    <div class="artwork" aria-hidden="true"></div>
-    <section class="loading-status">
-      <p class="loading-label" id="loadingLabel">Getting things ready...</p>
-      <div class="progress-track"
-           id="progressTrack"
-           role="progressbar"
-           aria-label="Loading progress"
-           aria-valuemin="0"
-           aria-valuemax="100"
-           aria-valuenow="0">
+  <main class="loading-screen" aria-label="Learning Life loading screen">
+    <img class="loading-artwork" src="./assets/loading-artwork.webp" alt="Learning Life — Your Daily Life Companion, with two bear friends on a beach">
+    <section class="loading-status" role="status" aria-live="polite">
+      <p class="loading-label" id="loadingLabel">Loading...</p>
+      <div class="progress-track" id="progressTrack" role="progressbar" aria-label="Loading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
         <div class="progress-fill" id="progressFill"></div>
       </div>
       <p class="progress-number" id="progressNumber">0%</p>
     </section>
   </main>
-  <script src="app.js"></script>
+  <script src="./app.js"></script>
 </body>
 </html>
