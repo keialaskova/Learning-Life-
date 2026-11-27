@@ -30,10 +30,6 @@
    const greeting = hour < 12 ? 'Good morning' : hour < 18 ? 'Good afternoon' : 'Good evening';
    $('greeting').innerHTML = `${greeting}, ${escapeHtml(name)}! <span>♡</span>`;
    updateDateTime();
-   document.querySelectorAll('.bear-animation').forEach(video => {
-     video.muted = true; video.loop = true; video.playsInline = true;
-     video.play().catch(() => {});
-   });
    const cooking = $('welcomeVideo'); cooking.muted = true; cooking.play().catch(() => {});
  }
  function escapeHtml(value) { return value.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
