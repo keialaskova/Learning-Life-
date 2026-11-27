@@ -57,7 +57,62 @@
       <section class="reminder-card"><div><h3>Today's reminder</h3><p>Take things one step at a time. You are making progress.</p></div><span>🌷</span></section>
       <img class="sticker lower-decoration" src="assets/stickers/08_bears_sandcastle.png" alt="Bubu and Dudu building a sandcastle">
     </main>
-    <nav class="bottom-nav" aria-label="Main navigation"><button class="nav-item active" type="button"><span>⌂</span><b>Home</b></button><button class="nav-item" type="button"><span>▦</span><b>Calendar</b></button><button class="nav-item" type="button"><span>＄</span><b>Money</b></button><button class="nav-item" type="button"><span>▦</span><b>More</b></button></nav>
+    <main id="moneyScreen" class="money-screen hidden" aria-label="Money Tracker">
+      <header class="money-header">
+        <div><h1>Money Tracker <span>♡</span></h1><p>Keep your money organized</p></div>
+        <img src="assets/stickers/01_bubu_dudu_hug.png" alt="Bubu and Dudu">
+      </header>
+      <div class="money-tabs" role="tablist" aria-label="Money sections">
+        <button class="money-tab active" data-tab="overview" type="button">Overview</button>
+        <button class="money-tab" data-tab="transactions" type="button">Transactions</button>
+        <button class="money-tab" data-tab="wallets" type="button">Wallets</button>
+      </div>
+      <section class="money-panel active" id="money-overview">
+        <div class="money-summary">
+          <article class="summary-tile income-tile"><span class="summary-icon">⬆</span><div><b>Income</b><strong id="incomeTotal">₱0.00</strong></div></article>
+          <article class="summary-tile expense-tile"><span class="summary-icon">⬇</span><div><b>Expenses</b><strong id="expenseTotal">₱0.00</strong></div></article>
+          <article class="summary-tile savings-tile"><span class="summary-icon">🐷</span><div><b>Savings</b><strong id="savingsTotal">₱0.00</strong></div></article>
+          <img class="money-mascot" src="assets/stickers/04_dudu_piggy_bank.png" alt="Dudu saving money">
+        </div>
+        <h2 class="money-section-title">Wallets</h2>
+        <div id="walletOverview" class="wallet-list"></div>
+        <div class="money-actions"><button class="money-action add-income" id="openIncome" type="button">＋ Add Income</button><button class="money-action add-expense" id="openExpense" type="button">＋ Add Expense</button></div>
+        <button class="transfer-link" id="openTransfer" type="button">⇄ Transfer between wallets</button>
+      </section>
+      <section class="money-panel hidden" id="money-transactions">
+        <div class="money-section-head"><h2>Transactions</h2><button class="round-add" id="transactionAdd" type="button">＋</button></div>
+        <div class="filter-row"><button class="filter-chip active" data-filter="all" type="button">All</button><button class="filter-chip" data-filter="income" type="button">Income</button><button class="filter-chip" data-filter="expense" type="button">Expenses</button><button class="filter-chip" data-filter="transfer" type="button">Transfers</button></div>
+        <div id="transactionList" class="transaction-list"></div>
+      </section>
+      <section class="money-panel hidden" id="money-wallets">
+        <div class="money-section-head"><h2>My Wallets</h2><button class="round-add" id="addWallet" type="button">＋</button></div>
+        <div id="walletManager" class="wallet-list"></div>
+        <p class="money-hint">Transfers only move money between wallets. They are not counted as income or expenses.</p>
+      </section>
+    </main>
+    <div id="moneyModal" class="money-modal hidden" role="dialog" aria-modal="true" aria-labelledby="moneyModalTitle">
+      <form id="moneyForm" class="money-dialog">
+        <button class="modal-close" id="closeMoneyModal" type="button" aria-label="Close">×</button>
+        <h2 id="moneyModalTitle">Add transaction</h2>
+        <label>Description<input id="moneyDescription" maxlength="60" required placeholder="e.g. Salary"></label>
+        <label>Amount (₱)<input id="moneyAmount" type="number" min="0.01" step="0.01" required placeholder="0.00"></label>
+        <label>Wallet<select id="moneyWallet" required></select></label>
+        <label>Date<input id="moneyDate" type="date" required></label>
+        <div class="dialog-actions"><button type="button" class="cancel-money" id="cancelMoney">Cancel</button><button type="submit" class="save-money">Save</button></div>
+      </form>
+    </div>
+    <div id="transferModal" class="money-modal hidden" role="dialog" aria-modal="true" aria-labelledby="transferTitle">
+      <form id="transferForm" class="money-dialog">
+        <button class="modal-close" id="closeTransferModal" type="button" aria-label="Close">×</button>
+        <h2 id="transferTitle">Transfer money</h2>
+        <label>From wallet<select id="fromWallet" required></select></label>
+        <label>To wallet<select id="toWallet" required></select></label>
+        <label>Amount (₱)<input id="transferAmount" type="number" min="0.01" step="0.01" required placeholder="0.00"></label>
+        <label>Date<input id="transferDate" type="date" required></label>
+        <div class="dialog-actions"><button type="button" class="cancel-money" id="cancelTransfer">Cancel</button><button type="submit" class="save-money">Transfer</button></div>
+      </form>
+    </div>
+    <nav class="bottom-nav" aria-label="Main navigation"><button class="nav-item active" data-page="home" type="button"><span>⌂</span><b>Home</b></button><button class="nav-item" data-page="calendar" type="button"><span>▦</span><b>Calendar</b></button><button class="nav-item" data-page="money" type="button"><span>＄</span><b>Money</b></button><button class="nav-item" data-page="more" type="button"><span>▦</span><b>More</b></button></nav>
   </section>
 </div>
 <script src="app.js"></script>
