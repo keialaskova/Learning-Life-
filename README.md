@@ -12,3 +12,7 @@ This is a visual-theme foundation, not a claim that every screen in the referenc
 
 ## Publish
 Upload the contents of this folder to the root of your GitHub Pages repository. Keep your existing repository backup until the new version has been tested.
+
+
+## Welcome artwork reliability fix (v3)
+The welcome artwork is embedded directly in `index.html` as a data URI. This avoids GitHub Pages asset-path, folder-upload, and filename-case issues for the welcome image. Other project assets remain in `assets/` unchanged.
