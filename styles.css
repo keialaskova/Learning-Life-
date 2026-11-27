@@ -106,3 +106,6 @@
 
 .dashboard-screen.calendar-mode .top-banner,.dashboard-screen.calendar-mode>.dashboard{display:none}
 .dashboard-screen.calendar-mode{padding-bottom:82px}
+
+/* Keep the app shell and bottom navigation mounted while switching child pages. */
+#dashboardScreen>.top-banner.hidden,#dashboardScreen>main.dashboard.hidden{display:none!important}

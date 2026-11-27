@@ -85,15 +85,18 @@
  function showMoneyTab(tab){document.querySelectorAll('.money-tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));['overview','transactions','wallets'].forEach(k=>moneyEl('money-'+k).classList.toggle('hidden',k!==tab))}
  function setPage(page){if(!['home','calendar','money','more'].includes(page))page='home';
    const ds=moneyEl('dashboardScreen'),ms=moneyEl('moneyScreen'),cs=moneyEl('calendarScreen');
-   const home=page==='home',calendar=page==='calendar',money=page==='money';
-   ds.classList.toggle('hidden',!home);ds.classList.remove('money-mode');
-   ms.classList.toggle('hidden',!money);cs.classList.toggle('hidden',!calendar);
+   const calendar=page==='calendar',money=page==='money',home=page==='home';
+   ds.classList.remove('hidden');
+   const banner=ds.querySelector('.top-banner'),homeContent=ds.querySelector('main.dashboard');
+   if(banner)banner.classList.toggle('hidden',!home);
+   if(homeContent)homeContent.classList.toggle('hidden',!home);
+   ms.classList.toggle('hidden',!money);
+   cs.classList.toggle('hidden',!calendar);
    document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
    if(money){showMoneyTab('overview');renderMoney()}
    if(calendar)renderCalendar();
  }
-
- // Calendar: month navigation, date selection, and saved daily schedule entries.
+// Calendar: month navigation, date selection, and saved daily schedule entries.
  const calendarStoreKey='learningLifeCalendarEventsV1';
  let calendarEvents=[];
  try{calendarEvents=JSON.parse(localStorage.getItem(calendarStoreKey)||'[]');if(!Array.isArray(calendarEvents))calendarEvents=[]}catch{calendarEvents=[]}
