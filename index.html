@@ -57,6 +57,36 @@
       <section class="reminder-card"><div><h3>Today's reminder</h3><p>Take things one step at a time. You are making progress.</p></div><span>🌷</span></section>
       <img class="sticker lower-decoration" src="assets/stickers/08_bears_sandcastle.png" alt="Bubu and Dudu building a sandcastle">
     </main>
+    <main id="calendarScreen" class="calendar-screen hidden" aria-label="Calendar">
+      <header class="calendar-header">
+        <div class="calendar-title"><h1>Calendar <span>♡</span></h1></div>
+        <img src="assets/stickers/02_beach_hat_bears.png" alt="Bubu and Dudu at the beach">
+      </header>
+      <section class="calendar-month-card">
+        <div class="month-controls">
+          <button id="prevMonth" type="button" aria-label="Previous month">‹</button>
+          <h2 id="monthLabel">November 2026</h2>
+          <button id="nextMonth" type="button" aria-label="Next month">›</button>
+        </div>
+        <div class="weekday-row" aria-hidden="true"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div>
+        <div id="calendarDays" class="calendar-days" role="grid" aria-label="Calendar dates"></div>
+        <img class="calendar-corner-sticker" src="assets/stickers/12_starfish_and_shell.png" alt="">
+      </section>
+      <section class="day-schedule-card">
+        <div class="schedule-heading"><h2 id="selectedDateLabel">Today</h2><button id="addSchedule" type="button" aria-label="Add schedule">＋</button></div>
+        <div id="scheduleList" class="schedule-list"></div>
+      </section>
+      <img class="calendar-bottom-decoration" src="assets/stickers/13_beach_plants_and_stones.png" alt="">
+      <div id="scheduleModal" class="money-modal hidden" role="dialog" aria-modal="true" aria-labelledby="scheduleModalTitle">
+        <form id="scheduleForm" class="money-dialog">
+          <button class="modal-close" id="closeScheduleModal" type="button" aria-label="Close">×</button>
+          <h2 id="scheduleModalTitle">Add schedule</h2>
+          <label>Time<input id="scheduleTime" type="time" required></label>
+          <label>Activity<input id="scheduleTitle" maxlength="70" required placeholder="e.g. Team meeting"></label>
+          <div class="dialog-actions"><button type="button" class="cancel-money" id="cancelSchedule">Cancel</button><button type="submit" class="save-money">Save</button></div>
+        </form>
+      </div>
+    </main>
     <main id="moneyScreen" class="money-screen hidden" aria-label="Money Tracker">
       <header class="money-header">
         <div><h1>Money Tracker <span>♡</span></h1><p>Keep your money organized</p></div>

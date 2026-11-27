@@ -83,7 +83,52 @@
    items.forEach(t=>{const row=document.createElement('div');row.className='money-transaction';const sym=document.createElement('span');sym.className='transaction-symbol';sym.textContent=t.kind==='income'?'⬆':t.kind==='expense'?'⬇':'⇄';const info=document.createElement('div');info.className='transaction-info';const title=document.createElement('b');title.textContent=t.description;const sub=document.createElement('small');sub.textContent=t.date+' · '+(t.kind==='transfer'?`${walletById(t.from)?.name||'Wallet'} → ${walletById(t.to)?.name||'Wallet'}`:(walletById(t.wallet)?.name||'Wallet'));info.append(title,sub);const value=document.createElement('strong');value.className='transaction-value '+(t.kind==='income'?'income':t.kind==='expense'?'expense':'');value.textContent=(t.kind==='income'?'+':t.kind==='expense'?'−':'')+peso(t.amount);row.append(sym,info,value);list.append(row)});
  }
  function showMoneyTab(tab){document.querySelectorAll('.money-tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));['overview','transactions','wallets'].forEach(k=>moneyEl('money-'+k).classList.toggle('hidden',k!==tab))}
- function setPage(page){if(page!=='home'&&page!=='money')page='home';const ds=moneyEl('dashboardScreen'),ms=moneyEl('moneyScreen');const home=page==='home';ds.classList.toggle('money-mode',!home);ms.classList.toggle('hidden',home||page!=='money');document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.page===page));if(page==='money'){showMoneyTab('overview');renderMoney()} }
+ function setPage(page){if(!['home','calendar','money','more'].includes(page))page='home';
+   const ds=moneyEl('dashboardScreen'),ms=moneyEl('moneyScreen'),cs=moneyEl('calendarScreen');
+   const home=page==='home',calendar=page==='calendar',money=page==='money';
+   ds.classList.toggle('hidden',!home);ds.classList.remove('money-mode');
+   ms.classList.toggle('hidden',!money);cs.classList.toggle('hidden',!calendar);
+   document.querySelectorAll('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.page===page));
+   if(money){showMoneyTab('overview');renderMoney()}
+   if(calendar)renderCalendar();
+ }
+
+ // Calendar: month navigation, date selection, and saved daily schedule entries.
+ const calendarStoreKey='learningLifeCalendarEventsV1';
+ let calendarEvents=[];
+ try{calendarEvents=JSON.parse(localStorage.getItem(calendarStoreKey)||'[]');if(!Array.isArray(calendarEvents))calendarEvents=[]}catch{calendarEvents=[]}
+ let calendarCursor=new Date();calendarCursor.setDate(1);
+ let selectedCalendarDate=new Date();selectedCalendarDate.setHours(12,0,0,0);
+ const dateKey=d=>`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+ const prettyDay=d=>new Intl.DateTimeFormat('en-US',{weekday:'short',month:'short',day:'numeric'}).format(d);
+ function renderCalendar(){
+   const label=moneyEl('monthLabel'),grid=moneyEl('calendarDays'),dayLabel=moneyEl('selectedDateLabel'),list=moneyEl('scheduleList');
+   if(!label||!grid||!list)return;
+   label.textContent=new Intl.DateTimeFormat('en-US',{month:'long',year:'numeric'}).format(calendarCursor);
+   grid.innerHTML='';
+   const year=calendarCursor.getFullYear(),month=calendarCursor.getMonth();
+   const first=new Date(year,month,1),start=first.getDay(),days=new Date(year,month+1,0).getDate();
+   for(let i=0;i<start;i++){const blank=document.createElement('span');blank.className='calendar-day blank';blank.setAttribute('aria-hidden','true');grid.append(blank)}
+   for(let n=1;n<=days;n++){
+     const date=new Date(year,month,n,12),key=dateKey(date),btn=document.createElement('button');
+     btn.type='button';btn.className='calendar-day'+(key===dateKey(selectedCalendarDate)?' selected':'')+(key===dateKey(new Date())?' today':'');
+     btn.textContent=String(n);btn.setAttribute('role','gridcell');btn.setAttribute('aria-label',prettyDay(date));
+     if(calendarEvents.some(e=>e.date===key))btn.classList.add('has-event');
+     btn.addEventListener('click',()=>{selectedCalendarDate=date;renderCalendar()});grid.append(btn);
+   }
+   dayLabel.textContent=prettyDay(selectedCalendarDate);
+   list.innerHTML='';
+   const entries=calendarEvents.filter(e=>e.date===dateKey(selectedCalendarDate)).sort((a,b)=>a.time.localeCompare(b.time));
+   if(!entries.length){const empty=document.createElement('p');empty.className='schedule-empty';empty.textContent='Nothing planned yet. Add a little plan for this day ♡';list.append(empty)}
+   entries.forEach(e=>{const row=document.createElement('div');row.className='schedule-row';const dot=document.createElement('span');dot.className='schedule-dot';const time=document.createElement('strong');time.textContent=new Date('2000-01-01T'+e.time).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});const title=document.createElement('span');title.className='schedule-event-title';title.textContent=e.title;const del=document.createElement('button');del.type='button';del.className='schedule-delete';del.textContent='×';del.setAttribute('aria-label','Delete '+e.title);del.addEventListener('click',()=>{calendarEvents=calendarEvents.filter(x=>x.id!==e.id);localStorage.setItem(calendarStoreKey,JSON.stringify(calendarEvents));renderCalendar()});row.append(dot,time,title,del);list.append(row)});
+ }
+ moneyEl('prevMonth').addEventListener('click',()=>{calendarCursor.setMonth(calendarCursor.getMonth()-1);renderCalendar()});
+ moneyEl('nextMonth').addEventListener('click',()=>{calendarCursor.setMonth(calendarCursor.getMonth()+1);renderCalendar()});
+ function closeSchedule(){moneyEl('scheduleModal').classList.add('hidden')}
+ moneyEl('addSchedule').addEventListener('click',()=>{moneyEl('scheduleTime').value='09:00';moneyEl('scheduleTitle').value='';moneyEl('scheduleModal').classList.remove('hidden')});
+ ['closeScheduleModal','cancelSchedule'].forEach(id=>moneyEl(id).addEventListener('click',closeSchedule));
+ moneyEl('scheduleForm').addEventListener('submit',e=>{e.preventDefault();const title=moneyEl('scheduleTitle').value.trim(),time=moneyEl('scheduleTime').value;if(!title||!time)return;calendarEvents.push({id:Date.now(),date:dateKey(selectedCalendarDate),time,title});localStorage.setItem(calendarStoreKey,JSON.stringify(calendarEvents));closeSchedule();renderCalendar()});
+
  document.querySelectorAll('.nav-item').forEach(b=>b.addEventListener('click',()=>setPage(b.dataset.page||'home')));
  document.querySelectorAll('.money-tab').forEach(b=>b.addEventListener('click',()=>showMoneyTab(b.dataset.tab)));
  function openTransaction(kind){moneyType=kind;moneyEl('moneyModalTitle').textContent=kind==='income'?'Add Income':'Add Expense';moneyEl('moneyDescription').value='';moneyEl('moneyAmount').value='';moneyEl('moneyDate').value=new Date().toISOString().slice(0,10);fillWalletSelect('moneyWallet');moneyEl('moneyModal').classList.remove('hidden')}
