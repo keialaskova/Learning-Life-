@@ -3,22 +3,28 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#9bd4f5">
-  <meta name="description" content="Learning Life — Your Daily Life Companion">
-  <title>Learning Life</title>
-  <link rel="stylesheet" href="./styles.css">
+  <meta name="theme-color" content="#a8d9f4">
+  <title>Welcome to Learning Life</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <main class="loading-screen" aria-label="Learning Life loading screen">
-    <img class="loading-artwork" src="./assets/loading-artwork.webp" alt="Learning Life — Your Daily Life Companion, with two bear friends on a beach">
-    <section class="loading-status" role="status" aria-live="polite">
-      <p class="loading-label" id="loadingLabel">Loading...</p>
-      <div class="progress-track" id="progressTrack" role="progressbar" aria-label="Loading progress" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
-        <div class="progress-fill" id="progressFill"></div>
+  <main class="screen" aria-label="Learning Life welcome screen">
+    <img class="artwork" src="assets/welcome-screen.jpg" alt="Bubu and Dudu on a beach, welcoming you to Learning Life">
+    <form class="welcome-form" id="welcomeForm" autocomplete="on">
+      <label class="visually-hidden" for="userName">Your name</label>
+      <input id="userName" name="name" type="text" maxlength="32" placeholder="Enter your name" autocomplete="given-name" required>
+      <button id="continueButton" type="submit" aria-label="Continue to Learning Life"></button>
+      <p class="error" id="errorMessage" role="alert" aria-live="polite"></p>
+    </form>
+    <section class="confirmation" id="confirmation" hidden aria-live="polite">
+      <div class="confirmation-card">
+        <p class="hello">Nice to meet you! ♡</p>
+        <h1 id="personalGreeting"></h1>
+        <p>Your Learning Life is ready to begin.</p>
+        <button type="button" id="editName">Change name</button>
       </div>
-      <p class="progress-number" id="progressNumber">0%</p>
     </section>
   </main>
-  <script src="./app.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>

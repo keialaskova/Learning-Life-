@@ -1,17 +1,15 @@
-LEARNING LIFE — LOADING SCREEN v1.1
+LEARNING LIFE — WELCOME SCREEN v1
 
-This is a standalone responsive loading screen for Android, iPhone, and tablet browsers.
+Files:
+- index.html: welcome screen
+- styles.css: responsive layout and interactive input/button placement
+- app.js: name validation, local device storage, and greeting confirmation
+- assets/welcome-screen.jpg: supplied visual reference artwork
 
-IMPORTANT — UPLOAD THE WHOLE FOLDER CONTENTS:
-Keep this exact structure in the GitHub Pages repository root:
-  index.html
-  styles.css
-  app.js
-  assets/
-    loading-artwork.webp
+Preview:
+Open index.html in a browser. Enter a name and tap the Continue button.
+The name is saved locally under the key learningLifeUserName.
 
-Do not upload only index.html. The artwork is a separate file and must remain inside the assets folder.
-
-The image is now an actual <img> element rather than a CSS background. This makes missing artwork easier to detect and avoids the previous negative stacking issue.
-
-The progress bar is currently a demo animation lasting about 5.2 seconds. It is not yet connected to the real Learning Life app initialization.
+GitHub Pages:
+Upload the complete contents of this folder, keeping the assets folder beside index.html.
+This is a standalone screen and is not yet connected to the loading screen or the main Learning Life app.

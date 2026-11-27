@@ -1,29 +1,32 @@
 (() => {
-  const fill = document.getElementById('progressFill');
-  const track = document.getElementById('progressTrack');
-  const number = document.getElementById('progressNumber');
-  const label = document.getElementById('loadingLabel');
-  const screen = document.querySelector('.loading-screen');
-  const duration = 5200; // Demo only; connect to real app startup later.
-  const start = performance.now();
-  let finished = false;
+  const form = document.getElementById('welcomeForm');
+  const input = document.getElementById('userName');
+  const error = document.getElementById('errorMessage');
+  const confirmation = document.getElementById('confirmation');
+  const greeting = document.getElementById('personalGreeting');
+  const editName = document.getElementById('editName');
 
-  function update(now) {
-    const raw = Math.min(100, ((now - start) / duration) * 100);
-    const progress = raw === 100 ? 100 : Math.min(96, 100 * (1 - Math.pow(1 - raw / 100, 1.55)));
-    const value = Math.round(progress);
-    fill.style.width = `${progress}%`;
-    number.textContent = `${value}%`;
-    track.setAttribute('aria-valuenow', String(value));
-    if (raw < 100) return requestAnimationFrame(update);
-    if (finished) return;
-    finished = true;
-    fill.style.width = '100%';
-    number.textContent = '100%';
-    track.setAttribute('aria-valuenow', '100');
-    label.textContent = 'Ready to begin!';
-    screen.classList.add('is-ready');
-    window.dispatchEvent(new CustomEvent('learninglife:ready'));
-  }
-  requestAnimationFrame(update);
+  try {
+    const savedName = localStorage.getItem('learningLifeUserName');
+    if (savedName) input.value = savedName;
+  } catch (_) { /* Storage may be unavailable in private browsing. */ }
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const name = input.value.trim().replace(/\s+/g, ' ');
+    if (!name) {
+      error.textContent = 'Please enter your name first ♡';
+      input.focus();
+      return;
+    }
+    error.textContent = '';
+    try { localStorage.setItem('learningLifeUserName', name); } catch (_) {}
+    greeting.textContent = `Hello, ${name}! ♡`;
+    confirmation.hidden = false;
+  });
+
+  editName.addEventListener('click', () => {
+    confirmation.hidden = true;
+    input.focus();
+  });
 })();
