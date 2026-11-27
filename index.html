@@ -150,6 +150,46 @@ body{min-height:100svh;overflow:hidden;background:#f6dfc8;font-family:ui-rounded
  .home-stat{min-height:90px}
 }
 
+
+/* v4 tablet sizing correction */
+.stage:has(.home-dashboard:not([hidden])){background:linear-gradient(180deg,#a8d9f5 0%,#d8eff9 24%,#ffe8d5 24%,#fff0e8 78%,#ffe5c8 100%) !important}
+.stage:has(.home-dashboard:not([hidden]))::before,.stage:has(.home-dashboard:not([hidden]))::after{display:none !important}
+.home-dashboard{background:linear-gradient(180deg,#a8d9f5 0%,#d8eff9 22%,#ffe8d5 22%,#fff0e8 78%,#ffe5c8 78%,#ffe5c8 100%) !important}
+.home-top{min-height:clamp(170px,22vh,245px) !important;padding:clamp(24px,4vh,42px) clamp(22px,5vw,76px) 22px !important}
+.home-brand{font-size:clamp(30px,3.4vw,46px) !important}
+.home-date{font-size:clamp(14px,1.25vw,18px) !important;padding:11px 17px !important}
+.home-mascots{font-size:clamp(48px,6vw,76px) !important;right:clamp(22px,5vw,76px) !important}
+.home-content{width:min(94%,1240px) !important;max-width:1240px !important;padding:clamp(24px,3.2vw,46px) clamp(20px,3vw,42px) 34px !important;background:transparent !important}
+.home-greeting{font-size:clamp(28px,3vw,42px) !important;margin-bottom:8px !important}
+.home-subtitle{font-size:clamp(17px,1.5vw,21px) !important;margin-bottom:24px !important}
+.home-stats{gap:clamp(12px,1.4vw,20px) !important;margin:22px 0 26px !important}
+.home-stat{min-height:clamp(120px,14vh,164px) !important;padding:18px 12px !important;border-radius:26px !important}
+.home-stat .emoji{font-size:clamp(30px,2.7vw,40px) !important}
+.home-stat strong{font-size:clamp(30px,2.7vw,40px) !important}
+.home-stat span:last-child{font-size:clamp(15px,1.35vw,19px) !important}
+.home-panel{padding:clamp(18px,2vw,28px) !important;margin-top:18px !important;border-radius:28px !important}
+.home-panel-heading h2{font-size:clamp(22px,2vw,28px) !important}
+.home-add{width:42px !important;height:42px !important;font-size:28px !important}
+.home-task{font-size:clamp(17px,1.5vw,21px) !important;padding:15px 4px !important;gap:14px !important}
+.home-task input{width:26px !important;height:26px !important}
+.home-bottom{padding:12px 5vw calc(12px + env(safe-area-inset-bottom)) !important;gap:12px !important}
+.home-nav{font-size:clamp(14px,1.3vw,18px) !important;padding:10px 6px 8px !important;gap:5px !important}
+.home-nav .nav-icon{font-size:clamp(26px,2.4vw,34px) !important}
+@media(max-width:699px){
+ .home-content{width:100% !important;padding:20px 18px 26px !important}
+ .home-top{min-height:158px !important;padding:22px 20px 18px !important}
+ .home-brand{font-size:29px !important}.home-mascots{font-size:44px !important}
+ .home-stat{min-height:104px !important;padding:12px 7px !important}
+ .home-stat strong{font-size:25px !important}.home-stat .emoji{font-size:25px !important}
+ .home-stat span:last-child{font-size:13px !important}
+ .home-greeting{font-size:25px !important}.home-subtitle{font-size:15px !important}
+ .home-panel-heading h2{font-size:19px !important}
+ .home-task{font-size:15px !important;padding:11px 2px !important}
+ .home-bottom{padding:9px 8px calc(9px + env(safe-area-inset-bottom)) !important}
+ .home-nav{font-size:12px !important;padding:7px 2px 5px !important}
+ .home-nav .nav-icon{font-size:24px !important}
+}
+
 </style>
 </head>
 <body>
