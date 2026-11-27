@@ -1,41 +1,65 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#a9def7"><meta name="description" content="Learning Life — your daily life companion">
-<title>Learning Life</title><link rel="stylesheet" href="styles.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#a9def7">
+<meta name="description" content="Learning Life — your daily life companion">
+<title>Learning Life</title>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="app-shell">
-  <header class="top-banner">
-    <div class="status-row"><span id="clock">6:14 AM</span><span class="status-icons">● ◉ ▰</span></div>
-    <div class="brand-row"><h1>Learning Life <span>♡</span></h1><img class="sticker header-bears" src="assets/stickers/01_bubu_dudu_hug.png" alt="Bubu and Dudu"></div>
-    <div class="date-pill"><span>▣</span><span id="todayDate">Sat, Nov 28, 2026</span></div>
-    <img class="sticker starfish" src="assets/stickers/12_starfish_and_shell.png" alt="">
-    <img class="sticker beach-plants" src="assets/stickers/13_beach_plants_and_stones.png" alt="">
-  </header>
-  <main class="dashboard">
-    <section class="greeting"><div><h2 id="greeting">Good morning, Sky! <span>♡</span></h2><p>A little progress each day<br>adds up!</p></div><img class="sticker greeting-bears" src="assets/stickers/01_bubu_dudu_hug.png" alt="Bubu and Dudu together"></section>
-    <section class="video-card" aria-label="Bubu and Dudu cooking video"><video id="welcomeVideo" autoplay muted loop playsinline preload="auto" poster="assets/stickers/07_bears_cooking.png"><source src="assets/video/bubu-dudu-cooking.mp4" type="video/mp4"></video><button class="sound-toggle" id="soundToggle" aria-label="Turn sound on">♪</button></section>
-    <section class="stats-grid" aria-label="Daily overview">
-      <article class="stat-card tasks-stat"><div class="stat-icon">☑</div><div class="stat-label">Tasks</div><strong id="taskCount">0/2</strong></article>
-      <article class="stat-card schedule-stat"><div class="stat-icon">▦</div><div class="stat-label">Schedule</div><strong>2</strong></article>
-      <article class="stat-card goals-stat"><div class="stat-icon">◎</div><div class="stat-label">Goals</div><strong>1</strong></article>
-    </section>
-    <section class="tasks-card">
-      <div class="section-heading"><h3><span>♧</span> Today's Tasks</h3><button class="small-add" aria-label="Add task">+</button></div>
-      <label class="task-row"><input type="checkbox" class="task-check"><span>Finish report</span></label>
-      <label class="task-row"><input type="checkbox" class="task-check"><span>Buy groceries</span></label>
-    </section>
-    <section class="reminder-card"><div><h3>Today's reminder</h3><p>Take things one step at a time. You are making progress.</p></div><span>🌷</span></section>
-    <img class="sticker lower-decoration" src="assets/stickers/08_bears_sandcastle.png" alt="Bubu and Dudu building a sandcastle">
-  </main>
-  <nav class="bottom-nav" aria-label="Main navigation">
-    <button class="nav-item active"><span>⌂</span><b>Home</b></button>
-    <button class="nav-item"><span>▦</span><b>Calendar</b></button>
-    <button class="nav-item"><span>＄</span><b>Money</b></button>
-    <button class="nav-item"><span>▦</span><b>More</b></button>
-  </nav>
+<div class="app-frame">
+  <section id="loadingScreen" class="screen loading-screen" aria-label="Loading Learning Life">
+    <div class="loading-sky"></div>
+    <div class="loading-brand"><div class="heart">♡</div><h1>Learning Life</h1><p>Your Daily Life Companion ♡</p></div>
+    <div class="loading-character"><img src="assets/stickers/02_beach_hat_bears.png" alt="Bubu and Dudu at the beach"></div>
+    <div class="loading-bottom"><div class="loading-label">Loading...</div><div class="progress-track"><div id="progressFill" class="progress-fill"></div></div></div>
+  </section>
+
+  <section id="welcomeScreen" class="screen welcome-screen hidden" aria-label="Welcome">
+    <div class="welcome-sky"></div>
+    <img class="welcome-cloud cloud-one" src="assets/stickers/10_clouds.png" alt="">
+    <img class="welcome-cloud cloud-two" src="assets/stickers/10_clouds.png" alt="">
+    <div class="welcome-card-wrap">
+      <img class="welcome-bears" src="assets/stickers/01_bubu_dudu_hug.png" alt="Bubu and Dudu">
+      <form id="welcomeForm" class="welcome-card">
+        <h2>Hi there! <span>♡</span></h2>
+        <p>What should I call you?</p>
+        <label class="name-field"><span aria-hidden="true">♙</span><input id="nameInput" type="text" maxlength="28" autocomplete="given-name" placeholder="Enter your name" required></label>
+        <button class="continue-button" type="submit">Continue <span>♡</span></button>
+      </form>
+    </div>
+    <div class="welcome-seashells"><img src="assets/stickers/15_sand_shell_and_star.png" alt="Seashell and starfish"></div>
+  </section>
+
+  <section id="dashboardScreen" class="screen dashboard-screen hidden" aria-label="Learning Life dashboard">
+    <header class="top-banner">
+      <div class="status-row"><span id="clock">6:14 AM</span><span class="status-icons">● ◉ ▰</span></div>
+      <div class="brand-row"><h1>Learning Life <span>♡</span></h1><video class="sticker header-bears bear-animation" autoplay muted loop playsinline webkit-playsinline preload="auto" aria-label="Bubu and Dudu costume animation"><source src="assets/video/header-bears-animation.mp4" type="video/mp4"></video></div>
+      <div class="date-pill"><span>▣</span><span id="todayDate"></span></div>
+      <img class="sticker starfish" src="assets/stickers/12_starfish_and_shell.png" alt="">
+      <img class="sticker beach-plants" src="assets/stickers/13_beach_plants_and_stones.png" alt="">
+    </header>
+    <main class="dashboard">
+      <section class="greeting"><div><h2 id="greeting">Good morning! <span>♡</span></h2><p>A little progress each day<br>adds up!</p></div><video class="sticker greeting-bears bear-animation" autoplay muted loop playsinline webkit-playsinline preload="auto" aria-label="Bubu and Dudu hugging animation"><source src="assets/video/greeting-bears-animation.mp4" type="video/mp4"></video></section>
+      <section class="video-card" aria-label="Bubu and Dudu cooking video"><video id="welcomeVideo" autoplay muted loop playsinline webkit-playsinline preload="auto" poster="assets/stickers/07_bears_cooking.png"><source src="assets/video/bubu-dudu-cooking.mp4" type="video/mp4"></video><button class="sound-toggle" id="soundToggle" aria-label="Turn sound on">♪</button></section>
+      <section class="stats-grid" aria-label="Daily overview">
+        <article class="stat-card tasks-stat"><div class="stat-icon">☑</div><div class="stat-label">Tasks</div><strong id="taskCount">0/2</strong></article>
+        <article class="stat-card schedule-stat"><div class="stat-icon">▦</div><div class="stat-label">Schedule</div><strong>2</strong></article>
+        <article class="stat-card goals-stat"><div class="stat-icon">◎</div><div class="stat-label">Goals</div><strong>1</strong></article>
+      </section>
+      <section class="tasks-card">
+        <div class="section-heading"><h3><span>♧</span> Today's Tasks</h3><button class="small-add" type="button" aria-label="Add task">+</button></div>
+        <label class="task-row"><input type="checkbox" class="task-check"><span>Finish report</span></label>
+        <label class="task-row"><input type="checkbox" class="task-check"><span>Buy groceries</span></label>
+      </section>
+      <section class="reminder-card"><div><h3>Today's reminder</h3><p>Take things one step at a time. You are making progress.</p></div><span>🌷</span></section>
+      <img class="sticker lower-decoration" src="assets/stickers/08_bears_sandcastle.png" alt="Bubu and Dudu building a sandcastle">
+    </main>
+    <nav class="bottom-nav" aria-label="Main navigation"><button class="nav-item active" type="button"><span>⌂</span><b>Home</b></button><button class="nav-item" type="button"><span>▦</span><b>Calendar</b></button><button class="nav-item" type="button"><span>＄</span><b>Money</b></button><button class="nav-item" type="button"><span>▦</span><b>More</b></button></nav>
+  </section>
 </div>
 <script src="app.js"></script>
-</body></html>
+</body>
+</html>

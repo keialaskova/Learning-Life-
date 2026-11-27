@@ -1,15 +1,14 @@
-LEARNING LIFE — DASHBOARD BUILD 1
+LEARNING LIFE — COMPLETE STARTER BUILD 3
 
-This is a fresh standalone dashboard build, not the old Learning Life codebase.
+This build combines the three screens in the requested order:
+1. Loading screen with Learning Life title, beach artwork, Bubu & Dudu sticker, and animated progress bar.
+2. Welcome/name screen. The name is saved in this browser using localStorage.
+3. Dashboard with the cooking video and the two supplied animated bear MP4s in the header and greeting positions.
 
-Included:
-- Responsive Learning Life dashboard layout for mobile and tablet
-- 16 individual transparent PNG stickers from LearningLife_Individual_Stickers.zip
-- Bubu & Dudu cooking video in the dashboard, configured to autoplay muted, loop, and play inline
-- Daily greeting/date/time and working task checkboxes/count
-- Bottom navigation visual shell
+The first visit shows Loading -> Welcome -> Dashboard after the user enters a name. Later visits show Loading -> Dashboard using the saved name. Clearing this site's browser data resets the welcome step.
 
-To test: open index.html in a browser or upload the folder contents to the GitHub Pages repository.
+Both character animations and the cooking video are configured for muted autoplay, looping and inline mobile playback. Mobile browsers may restrict autoplay in some situations; videos remain available for user playback.
 
-Autoplay with sound is blocked by many mobile browsers, so the video starts muted. The sound button lets the user enable audio.
-This build is a front-end dashboard prototype; navigation destinations and data persistence are not yet connected.
+This is a front-end prototype. Calendar, Money and More navigation destinations, full task management, and cloud synchronization are not implemented yet.
+
+To publish on GitHub Pages: upload the CONTENTS of this folder to the repository root, preserving the assets folder structure.
