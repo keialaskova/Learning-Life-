@@ -1,181 +1,30 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#171a27">
-<title>Working Life 2.0</title>
-<style>
-:root{--bg:#f5f6f8;--panel:#fff;--ink:#252938;--muted:#687083;--line:#e4e7ee;--accent:#6375bd;--accent2:#e9edfb;--danger:#b64c59;--shadow:0 8px 28px #1c25400d}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,-apple-system,Segoe UI,sans-serif;transition:background .2s,color .2s}
-button,input,textarea,select{font:inherit}button{cursor:pointer}.app{max-width:1280px;margin:auto;padding:24px}.top{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:22px}.brand{font-size:23px;font-weight:750;letter-spacing:-.5px}.brand span{color:var(--accent)}.top-actions{display:flex;gap:8px;align-items:center}.layout{display:grid;grid-template-columns:225px minmax(0,1fr);gap:20px}.side,.panel,.card,.welcome{background:var(--panel);border:1px solid var(--line);border-radius:17px;box-shadow:var(--shadow)}.side{padding:14px;height:max-content;position:sticky;top:16px}.navlabel{font-size:10px;font-weight:800;letter-spacing:1.3px;color:var(--muted);padding:12px 10px 6px}.nav{width:100%;display:flex;align-items:center;gap:10px;border:0;background:transparent;color:var(--muted);padding:10px;border-radius:10px;text-align:left;margin:2px 0}.nav.active,.nav:hover{background:var(--accent2);color:var(--ink)}.content{min-width:0}.welcome{padding:22px 24px;margin-bottom:16px}.welcome h1{margin:0 0 3px;font-size:28px;letter-spacing:-.7px}.welcome p{margin:0;color:var(--muted)}.panel{padding:20px;margin-bottom:16px}.panelhead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px}.panelhead h2{font-size:17px;margin:0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:16px}.stat{padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--panel)}.stat small{display:block;color:var(--muted)}.stat strong{font-size:24px}.btn{border:1px solid var(--line);background:var(--accent);color:white;border-radius:10px;padding:9px 13px;font-weight:650}.btn.secondary{background:var(--panel);color:var(--ink)}.btn.ghost{background:transparent;color:var(--muted)}.btn.danger{background:var(--danger);border-color:var(--danger)}.field{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel);color:var(--ink);margin:5px 0 12px}.row{display:flex;gap:8px;align-items:center}.row>*{min-width:0}.row .field{margin:0}.muted{color:var(--muted)}.item{display:flex;gap:10px;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--line)}.item:last-child{border-bottom:0}.item-main{flex:1;min-width:0}.item-title{font-weight:650;overflow-wrap:anywhere}.item small{color:var(--muted)}.done .item-title{text-decoration:line-through;color:var(--muted)}.empty{padding:20px;text-align:center;color:var(--muted)}.hidden{display:none!important}
-#calendar{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px;text-align:center}#calendar b{font-size:12px;color:var(--muted);padding:6px 0}#calendar button{min-width:0;min-height:44px;border:1px solid transparent;border-radius:10px;background:transparent;color:var(--ink);font-weight:600}#calendar button:hover{background:var(--accent2)}#calendar button.today{background:var(--accent);color:#fff}#calendar button.marked:after{content:"";display:block;width:4px;height:4px;border-radius:50%;background:var(--accent);margin:2px auto 0}#calendar button.today:after{background:#fff}.tag{font-size:11px;border-radius:99px;background:var(--accent2);padding:3px 8px;color:var(--ink)}.check{width:18px;height:18px;margin-top:3px;accent-color:var(--accent)}.section{display:none}.section.active{display:block}.theme-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.theme{padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);text-align:left}.theme.active{outline:2px solid var(--accent)}.swatches{display:flex;gap:4px;margin-bottom:8px}.swatches i{width:18px;height:18px;border-radius:50%;display:block}.footer{text-align:center;color:var(--muted);font-size:11px;padding:18px}
-.modal{position:fixed;inset:0;background:#10132199;display:none;align-items:center;justify-content:center;padding:16px;z-index:10}.modal.open{display:flex}.dialog{background:var(--panel);color:var(--ink);width:min(480px,100%);border-radius:16px;padding:22px;max-height:90vh;overflow:auto}.dialog h2{margin:0 0 12px}.actions{display:flex;justify-content:flex-end;gap:8px;margin-top:8px}
-body.dark{--bg:#171a27;--panel:#22263a;--ink:#f0f2fa;--muted:#b8bfd2;--line:#3a4059;--accent:#9aa9ef;--accent2:#343b5c;--shadow:0 8px 28px #0002}
-body[data-theme="zen"]{--bg:#f3eee4;--panel:#fffdf8;--ink:#292c25;--muted:#625f55;--line:#ded5c5;--accent:#65765d;--accent2:#e5eadf;font-family:Georgia,serif}
-body[data-theme="luxury"]{--bg:#211811;--panel:#302319;--ink:#f4eadb;--muted:#c8b39b;--line:#51402f;--accent:#c99c55;--accent2:#493626}
-body[data-theme="linear"]{--bg:#f7f8fa;--panel:#fff;--ink:#242833;--muted:#777f8e;--line:#e1e4ea;--accent:#5865d9;--accent2:#eceeff}
-body[data-theme="notion"]{--bg:#f7f7f5;--panel:#fff;--ink:#292929;--muted:#777;--line:#e8e8e5;--accent:#777;--accent2:#ededeb}
-body[data-theme="glass"]{--bg:#20243d;--panel:#353957;--ink:#f7f6ff;--muted:#deddf4;--line:#666b9b;--accent:#a9a1e9;--accent2:#49466c}
-body[data-theme="cozy"]{--bg:#fbf0e9;--panel:#fffaf7;--ink:#403044;--muted:#655568;--line:#ecd9df;--accent:#8b68a7;--accent2:#f0e2f2}
-body.dark[data-theme="zen"]{--bg:#20251e;--panel:#2d342a;--ink:#f2f0e8;--muted:#c7c4b8;--line:#4b5545;--accent:#a8bd98;--accent2:#414b3a}
-body.dark[data-theme="luxury"]{--bg:#17120f;--panel:#241b16;--ink:#fff5e9;--muted:#e0cdb8;--line:#604b39;--accent:#d5ad70;--accent2:#493626}
-body.dark[data-theme="linear"]{--bg:#171a27;--panel:#22263a;--ink:#f0f2fa;--muted:#c4c9d8;--line:#3a4059;--accent:#9aa9ef;--accent2:#343b5c}
-body.dark[data-theme="notion"]{--bg:#191919;--panel:#242424;--ink:#f4f4f4;--muted:#c6c6c6;--line:#454545;--accent:#b8b8b8;--accent2:#3b3b3b}
-body.dark[data-theme="glass"]{--bg:#20243d;--panel:#353957;--ink:#f7f6ff;--muted:#deddf4;--line:#666b9b;--accent:#c2baf5;--accent2:#49466c}
-body.dark[data-theme="cozy"]{--bg:#28212d;--panel:#382e40;--ink:#fff5ff;--muted:#e0cfe2;--line:#604e67;--accent:#c5a2df;--accent2:#51425b}
-@media(max-width:800px){.app{padding:14px}.layout{grid-template-columns:1fr}.side{position:static;overflow:auto;display:flex;gap:4px;white-space:nowrap}.navlabel{display:none}.nav{width:auto;flex:0 0 auto}.grid{grid-template-columns:1fr}.theme-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:480px){.stats{grid-template-columns:1fr 1fr}.welcome h1{font-size:24px}.panel{padding:15px}}
-
-/* BUBU & DUDU BEACH — first-pass theme skin */
-body[data-theme="bubu"]{
- --bg:#ffeadb;--panel:#fffaf5;--ink:#45271e;--muted:#98766a;--line:#efd3c4;
- --accent:#e98183;--accent2:#ffe1e3;--danger:#cb6869;--shadow:0 7px 22px rgba(111,65,48,.09);
- background:linear-gradient(180deg,#a9dcfa 0 230px,#f7dfc5 230px 390px,#ffeadb 390px 100%);
- color:var(--ink)
-}
-body[data-theme="bubu"] .app{max-width:900px;padding:16px 18px 100px}
-body[data-theme="bubu"] .top{background:rgba(255,250,245,.9);border:1px solid #f0d5c6;border-radius:20px;padding:13px 18px;margin-bottom:14px;box-shadow:var(--shadow)}
-body[data-theme="bubu"] .brand{color:#633a2d}
-body[data-theme="bubu"] .brand span{color:#e98183}
-body[data-theme="bubu"] .layout{grid-template-columns:190px minmax(0,1fr);gap:14px}
-body[data-theme="bubu"] .side{background:#fff8f1;border:1px solid #efd2c0;border-radius:22px;padding:12px}
-body[data-theme="bubu"] .nav{color:#76584d;border-radius:14px;padding:10px 11px}
-body[data-theme="bubu"] .nav.active,body[data-theme="bubu"] .nav:hover{background:#f8cfd0;color:#63372e}
-body[data-theme="bubu"] .welcome{position:relative;overflow:hidden;min-height:122px;padding:23px 24px;border:1px solid #f1d4c5;border-radius:25px;background:linear-gradient(110deg,#fff0e8,#fff8ee 55%,#dff4ff);box-shadow:var(--shadow)}
-body[data-theme="bubu"] .welcome:after{content:"";position:absolute;right:14px;bottom:-5px;width:150px;height:95px;background:url('assets/stickers/09_meal_eat_both.png') center/contain no-repeat;pointer-events:none}
-body[data-theme="bubu"] .welcome h1{color:#63372b;font-size:28px;letter-spacing:-.4px}
-body[data-theme="bubu"] .panel,body[data-theme="bubu"] .stat{background:#fffaf6;border:1px solid #efd7c9;border-radius:22px;box-shadow:var(--shadow)}
-body[data-theme="bubu"] .panel{padding:18px}
-body[data-theme="bubu"] .stat{padding:15px}
-body[data-theme="bubu"] .stat strong{color:#63372b}
-body[data-theme="bubu"] .btn{background:#e98183;border-color:#df777a;border-radius:999px;box-shadow:0 3px 0 rgba(128,62,55,.12)}
-body[data-theme="bubu"] .btn.secondary{background:#fff5ef;color:#63372b;border-color:#e9cbbb;box-shadow:none}
-body[data-theme="bubu"] .btn.ghost{background:transparent;box-shadow:none}
-body[data-theme="bubu"] .field{background:#fffdf9;border-color:#e9cbbb;border-radius:14px;color:#45271e;padding:12px}
-body[data-theme="bubu"] .item{border-bottom:1px solid #f0ded3;padding:14px 4px}
-body[data-theme="bubu"] .item-title{color:#57372d}
-body[data-theme="bubu"] #calendar button{border-radius:50%;min-height:42px}
-body[data-theme="bubu"] #calendar button.today{background:#e98183;color:#fff}
-body[data-theme="bubu"] #calendar button.marked{border-color:#edb8b4}
-body[data-theme="bubu"] .theme{background:#fffaf6;border:1px solid #efd7c9;border-radius:16px;padding:13px}
-body[data-theme="bubu"] .theme.active{outline:2px solid #e98183;background:#fff0ed}
-body[data-theme="bubu"] .footer{color:#98766a}
-body[data-theme="bubu"] .modal .dialog{background:#fffaf6;border:1px solid #efd7c9;border-radius:22px}
-body[data-theme="bubu"] progress{accent-color:#65c982}
-@media(max-width:760px){
- body[data-theme="bubu"] .app{padding:10px 12px 94px}
- body[data-theme="bubu"] .top{padding:10px 13px}
- body[data-theme="bubu"] .layout{display:block}
- body[data-theme="bubu"] .side{position:fixed;z-index:30;left:10px;right:10px;bottom:8px;top:auto;height:auto;display:flex;align-items:center;justify-content:space-around;gap:2px;padding:7px;background:rgba(255,246,237,.96);backdrop-filter:blur(14px);border-radius:22px;box-shadow:0 5px 24px rgba(82,48,37,.18)}
- body[data-theme="bubu"] .side .navlabel{display:none}
- body[data-theme="bubu"] .side .nav{display:none}
- body[data-theme="bubu"] .side .nav[data-page="dashboard"],
- body[data-theme="bubu"] .side .nav[data-page="calendarPage"],
- body[data-theme="bubu"] .side .nav[data-page="money"],
- body[data-theme="bubu"] .side .nav[data-page="settings"]{display:flex;flex:1;justify-content:center;text-align:center;white-space:nowrap;font-size:11px;padding:10px 3px;margin:0}
- body[data-theme="bubu"] .welcome{min-height:112px;padding:20px 18px}
- body[data-theme="bubu"] .welcome:after{width:112px;height:75px;right:4px}
- body[data-theme="bubu"] .welcome h1{font-size:25px;max-width:65%}
- body[data-theme="bubu"] .grid{grid-template-columns:1fr}
- body[data-theme="bubu"] .stats{grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
- body[data-theme="bubu"] .stat{padding:10px}
- body[data-theme="bubu"] .stat strong{font-size:19px}
- body[data-theme="bubu"] .panel{padding:14px}
- body[data-theme="bubu"] .row{flex-wrap:wrap}
- body[data-theme="bubu"] .row .field{flex:1 1 42%}
- body[data-theme="bubu"] .footer{padding-bottom:74px}
-}
-@media(max-width:390px){
- body[data-theme="bubu"] .stats{grid-template-columns:1fr}
- body[data-theme="bubu"] .welcome:after{opacity:.75;width:92px}
-}
-
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#9bd4f5">
+  <meta name="description" content="Learning Life — Your Daily Life Companion">
+  <title>Learning Life</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
-<body data-theme="bubu">
-<div class="app">
-<header class="top"><div class="brand">Working Life<span>.</span> <small class="muted">2.0</small></div><div class="top-actions"><span id="clock" class="muted"></span><button class="btn secondary" id="quickTheme" title="Toggle light and dark">◐</button></div></header>
-<div class="layout">
-<aside class="side">
-<div class="navlabel">WORKSPACE</div>
-<button class="nav active" data-page="dashboard">⌂ Dashboard</button><button class="nav" data-page="tasks">☑ Daily Tasks</button><button class="nav" data-page="schedule">◷ Schedule</button><button class="nav" data-page="calendarPage">▦ Calendar</button><button class="nav" data-page="money">₱ Money Tracker</button>
-<div class="navlabel">PERSONAL</div>
-<button class="nav" data-page="notes">▤ Notes</button><button class="nav" data-page="bible">✧ Bible</button><button class="nav" data-page="goals">◇ Goals & Milestones</button><button class="nav" data-page="savings">▣ Savings</button><button class="nav" data-page="habits">✓ Habit Tracker</button><button class="nav" data-page="reminders">♧ Reminders</button><button class="nav" data-page="reports">▥ Monthly Reports</button><button class="nav" data-page="weekly">▦ Weekly Overview</button><button class="nav" data-page="journal">✎ Daily Journal</button>
-<div class="navlabel">APP</div><button class="nav" data-page="settings">⚙ Settings</button><button class="nav" data-page="about">ⓘ About</button>
-</aside>
-<main class="content">
-<section id="dashboard" class="section active"><div class="welcome"><h1 id="greeting">Today</h1><p id="todayLabel"></p></div><div class="stats"><div class="stat"><small>Today's tasks</small><strong id="taskCount">0</strong></div><div class="stat"><small>Completed</small><strong id="doneCount">0</strong></div><div class="stat"><small>Upcoming</small><strong id="upcomingCount">0</strong></div></div><div class="grid"><div class="panel"><div class="panelhead"><h2>Today's tasks</h2><button class="btn secondary" data-go="tasks">View all</button></div><div id="todayTasks"></div></div><div class="panel"><div class="panelhead"><h2>Today's schedule</h2><button class="btn secondary" data-go="schedule">View all</button></div><div id="todaySchedule"></div></div></div></section>
-<section id="tasks" class="section"><div class="welcome"><h1>Daily Tasks</h1><p>Keep today's priorities clear and manageable.</p></div><div class="panel"><form id="taskForm"><label>Task</label><input class="field" id="taskText" placeholder="What needs to be done?" required><div class="row"><input class="field" id="taskDate" type="date" required><select class="field" id="taskPriority"><option>Normal</option><option>Important</option><option>High</option></select><button class="btn">Add task</button></div></form><div id="taskList"></div></div></section>
-<section id="schedule" class="section"><div class="welcome"><h1>Schedule</h1><p>Plan your time with a simple daily schedule.</p></div><div class="panel"><form id="scheduleForm"><input class="field" id="scheduleTitle" placeholder="Schedule title" required><div class="row"><input class="field" id="scheduleDate" type="date" required><input class="field" id="scheduleTime" type="time" required></div><button class="btn">Add schedule</button></form><div id="scheduleList"></div></div></section>
-<section id="calendarPage" class="section"><div class="welcome"><h1>Calendar</h1><p>A simple view of your dates and plans.</p></div><div class="panel"><div class="panelhead"><button class="btn secondary" id="prevMonth">←</button><h2 id="monthLabel"></h2><button class="btn secondary" id="nextMonth">→</button></div><div id="calendar"></div><p class="muted">Select a date to view its saved tasks and schedule.</p></div><div class="panel"><h2 id="selectedDateTitle">Selected date</h2><div id="selectedItems"></div></div></section>
-<section id="money" class="section"><div class="welcome"><h1>Money Tracker</h1><p>Record income and expenses.</p></div><div class="panel"><form id="moneyForm"><input class="field" id="moneyTitle" placeholder="Description" required><div class="row"><select class="field" id="moneyType"><option value="income">Income</option><option value="expense">Expense</option></select><input class="field" id="moneyAmount" type="number" min="0" step=".01" placeholder="Amount (₱)" required></div><input class="field" id="moneyDate" type="date" required><button class="btn">Save transaction</button></form><div class="stats"><div class="stat"><small>Income</small><strong id="incomeTotal">₱0</strong></div><div class="stat"><small>Expenses</small><strong id="expenseTotal">₱0</strong></div><div class="stat"><small>Balance</small><strong id="balanceTotal">₱0</strong></div></div><div id="moneyList"></div></div></section>
-<section id="notes" class="section"><div class="welcome"><h1>Notes</h1><p>Keep your thoughts in one place.</p></div><div class="panel"><form id="noteForm"><input class="field" id="noteTitle" placeholder="Note title" required><textarea class="field" id="noteBody" rows="4" placeholder="Write your note..."></textarea><button class="btn">Save note</button></form><div id="noteList"></div></div></section>
-<section id="bible" class="section"><div class="welcome"><h1>Bible</h1><p>Keep meaningful verses and reflections together.</p></div><div class="panel"><form id="verseForm"><input class="field" id="verseRef" placeholder="Verse reference (e.g. Psalm 23:1)" required><textarea class="field" id="verseText" rows="3" placeholder="Verse text or personal reflection"></textarea><button class="btn">Save verse</button></form><div id="verseList"></div></div></section>
-<section id="goals" class="section"><div class="welcome"><h1>Goals & Milestones</h1><p>Break bigger goals into achievable steps.</p></div><div class="panel"><form id="goalForm"><input class="field" id="goalText" placeholder="Your goal" required><input class="field" id="goalDate" type="date"><button class="btn">Add goal</button></form><div id="goalList"></div></div></section>
-<section id="savings" class="section"><div class="welcome"><h1>Savings</h1><p>Track your savings progress.</p></div><div class="panel"><form id="savingForm"><input class="field" id="savingGoal" placeholder="Savings goal name" required><div class="row"><input class="field" id="savingTarget" type="number" min="0" placeholder="Target ₱"><input class="field" id="savingAmount" type="number" min="0" placeholder="Amount saved ₱"></div><button class="btn">Save goal</button></form><div id="savingList"></div></div></section>
-<section id="habits" class="section"><div class="welcome"><h1>Habit Tracker</h1><p>Build consistency one day at a time.</p></div><div class="panel"><form id="habitForm"><input class="field" id="habitText" placeholder="Habit name" required><button class="btn">Add habit</button></form><div id="habitList"></div></div></section>
-<section id="reminders" class="section"><div class="welcome"><h1>Reminders</h1><p>Keep important follow-ups visible.</p></div><div class="panel"><form id="reminderForm"><input class="field" id="reminderText" placeholder="Reminder" required><input class="field" id="reminderDate" type="date"><button class="btn">Add reminder</button></form><div id="reminderList"></div></div></section>
-<section id="reports" class="section"><div class="welcome"><h1>Monthly Reports</h1><p>A quick summary of your recorded activity.</p></div><div class="panel"><h2>This month</h2><div id="monthlyReport"></div></div></section>
-<section id="weekly" class="section"><div class="welcome"><h1>Weekly Overview</h1><p>Review tasks across the current week.</p></div><div class="panel"><div id="weeklyReport"></div></div></section>
-<section id="journal" class="section"><div class="welcome"><h1>Daily Journal</h1><p>A private space for daily reflections on this device.</p></div><div class="panel"><label for="journalDate">Date</label><input class="field" id="journalDate" type="date"><textarea class="field" id="journalText" rows="10" placeholder="Write about your day..."></textarea><button class="btn" id="saveJournal">Save journal</button></div></section>
-<section id="settings" class="section"><div class="welcome"><h1>Settings</h1><p>Personalize your Working Life experience.</p></div><div class="panel"><h2>Appearance</h2><p class="muted">Choose a design style.</p><div class="theme-list" id="themeList"></div><p><button class="btn secondary" id="modeToggle">Toggle light / dark mode</button></p><label>App name</label><input class="field" id="appNameInput" maxlength="32"><button class="btn" id="saveAppName">Save app name</button></div><div class="panel"><h2>Backup & Restore</h2><p class="muted">Export a backup file or restore one on this device.</p><button class="btn secondary" id="exportBackup">Export backup</button><label class="muted" for="importBackup">Restore backup (.json)</label><input class="field" id="importBackup" type="file" accept="application/json"></div></section>
-<section id="about" class="section"><div class="welcome"><h1>About</h1><p>Working Life 2.0 — your personal planning space.</p></div><div class="panel"><p>Designed to keep daily plans, personal notes, goals, and simple money records organized in one place.</p><p class="muted">Version 2.0 · Your entries are stored locally in this browser. Export backups regularly, especially before changing devices or clearing browser data.</p><p class="muted">© 2026 Working Life. All rights reserved.</p></div></section>
-</main></div><div class="footer">Your information is saved in this browser on this device.</div></div>
-<div class="modal" id="modal"><div class="dialog"><h2 id="modalTitle">Details</h2><div id="modalBody"></div><div class="actions"><button class="btn secondary" id="modalClose">Close</button></div></div></div>
-<script>
-const $=id=>document.getElementById(id),today=()=>new Date().toISOString().slice(0,10),fmt=d=>new Date(d+'T12:00:00').toLocaleDateString(undefined,{month:'short',day:'numeric',year:'numeric'}),money=n=>'₱'+Number(n||0).toLocaleString('en-PH',{minimumFractionDigits:2,maximumFractionDigits:2});
-const keys=['tasks','schedules','transactions','notes','verses','goals','savings','habits','reminders','journals'];
-let data={};keys.forEach(k=>data[k]=JSON.parse(localStorage.getItem('wl2_'+k)||'[]'));
-let settings=JSON.parse(localStorage.getItem('wl2_settings')||'{}');let selectedDate=today(),calDate=new Date();
-function save(){keys.forEach(k=>localStorage.setItem('wl2_'+k,JSON.stringify(data[k])));localStorage.setItem('wl2_settings',JSON.stringify(settings));renderAll()}
-function id(){return Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
-function addItem(list,obj){data[list].push({id:id(),...obj});save()}
-function removeItem(list,key){data[list]=data[list].filter(x=>x.id!==key);save()}
-function escapeHtml(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function showPage(p){document.querySelectorAll('.section').forEach(x=>x.classList.toggle('active',x.id===p));document.querySelectorAll('.nav').forEach(x=>x.classList.toggle('active',x.dataset.page===p));if(p==='calendarPage')renderCalendar();if(p==='journal')loadJournal();renderAll()}
-document.querySelectorAll('.nav').forEach(b=>b.onclick=()=>showPage(b.dataset.page));document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>showPage(b.dataset.go));
-function listHTML(items,list,render){if(!items.length)return '<div class="empty">Nothing here yet.</div>';return items.map(x=>render(x)+`<button class="btn ghost" aria-label="Delete" onclick="removeItem('${list}','${x.id}')">✕</button>`).join('')}
-function taskHTML(x){return `<div class="item ${x.done?'done':''}"><input class="check" type="checkbox" ${x.done?'checked':''} onchange="toggleTask('${x.id}',this.checked)"><div class="item-main"><div class="item-title">${escapeHtml(x.text)}</div><small>${fmt(x.date)} · ${escapeHtml(x.priority)}</small></div></div>`}
-function toggleTask(key,v){let x=data.tasks.find(t=>t.id===key);if(x)x.done=v;save()}
-function renderAll(){let t=today(),tasks=data.tasks.filter(x=>x.date===t),sched=data.schedules.filter(x=>x.date===t).sort((a,b)=>a.time.localeCompare(b.time));$('todayLabel').textContent=new Date().toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric',year:'numeric'});$('greeting').textContent=(settings.appName||'Working Life')+' · Today';$('taskCount').textContent=tasks.length;$('doneCount').textContent=tasks.filter(x=>x.done).length;$('upcomingCount').textContent=data.schedules.filter(x=>x.date>=t).length;$('todayTasks').innerHTML=tasks.length?tasks.map(taskHTML).join(''):'<div class="empty">No tasks planned for today.</div>';$('todaySchedule').innerHTML=sched.length?sched.map(x=>`<div class="item"><div class="item-main"><b>${escapeHtml(x.time)} · ${escapeHtml(x.title)}</b></div></div>`).join(''):'<div class="empty">No schedule for today.</div>';
-$('taskList').innerHTML=listHTML(data.tasks.slice().sort((a,b)=>a.date.localeCompare(b.date)),'tasks',taskHTML);
-$('scheduleList').innerHTML=listHTML(data.schedules.slice().sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time)),'schedules',x=>`<div class="item"><div class="item-main"><b>${escapeHtml(x.title)}</b><small>${fmt(x.date)} · ${escapeHtml(x.time)}</small></div></div>`);
-$('moneyList').innerHTML=listHTML(data.transactions.slice().reverse(),'transactions',x=>`<div class="item"><div class="item-main"><b>${escapeHtml(x.title)}</b><small>${fmt(x.date)} · ${x.type}</small></div><b>${x.type==='income'?'+':'−'}${money(x.amount)}</b></div>`);
-let inc=data.transactions.filter(x=>x.type==='income').reduce((s,x)=>s+Number(x.amount),0),exp=data.transactions.filter(x=>x.type==='expense').reduce((s,x)=>s+Number(x.amount),0);$('incomeTotal').textContent=money(inc);$('expenseTotal').textContent=money(exp);$('balanceTotal').textContent=money(inc-exp);
-$('noteList').innerHTML=listHTML(data.notes.slice().reverse(),'notes',x=>`<div class="item"><div class="item-main"><b>${escapeHtml(x.title)}</b><div>${escapeHtml(x.body)}</div></div></div>`);
-$('verseList').innerHTML=listHTML(data.verses.slice().reverse(),'verses',x=>`<div class="item"><div class="item-main"><b>${escapeHtml(x.ref)}</b><div>${escapeHtml(x.text)}</div></div></div>`);
-$('goalList').innerHTML=listHTML(data.goals,'goals',x=>`<div class="item"><div class="item-main"><b>${escapeHtml(x.text)}</b><small>${x.date?fmt(x.date):'No target date'}</small></div></div>`);
-$('savingList').innerHTML=listHTML(data.savings,'savings',x=>`<div class="item"><div class="item-main"><b>${escapeHtml(x.name)}</b><small>${money(x.amount)} saved of ${money(x.target)}</small><progress max="${Math.max(1,x.target)}" value="${Math.min(x.amount,x.target)}"></progress></div></div>`);
-$('habitList').innerHTML=listHTML(data.habits,'habits',x=>`<div class="item"><div class="item-main"><b>${escapeHtml(x.text)}</b><small>Added ${fmt(x.date)}</small></div></div>`);
-$('reminderList').innerHTML=listHTML(data.reminders,'reminders',x=>`<div class="item"><div class="item-main"><b>${escapeHtml(x.text)}</b><small>${x.date?fmt(x.date):'No date set'}</small></div></div>`);
-let month=t.slice(0,7),mTx=data.transactions.filter(x=>x.date.startsWith(month)),mi=mTx.filter(x=>x.type==='income').reduce((s,x)=>s+Number(x.amount),0),me=mTx.filter(x=>x.type==='expense').reduce((s,x)=>s+Number(x.amount),0);$('monthlyReport').innerHTML=`<p>Transactions: <b>${mTx.length}</b></p><p>Income: <b>${money(mi)}</b></p><p>Expenses: <b>${money(me)}</b></p><p>Net: <b>${money(mi-me)}</b></p>`;
-let start=new Date();start.setDate(start.getDate()-((start.getDay()+6)%7));let week=[...Array(7)].map((_,i)=>{let d=new Date(start);d.setDate(start.getDate()+i);return d.toISOString().slice(0,10)});$('weeklyReport').innerHTML=week.map(d=>`<div class="item"><div class="item-main"><b>${fmt(d)}</b><small>${data.tasks.filter(x=>x.date===d&&x.done).length} / ${data.tasks.filter(x=>x.date===d).length} tasks completed</small></div></div>`).join('');
-renderCalendarSelection();document.title=(settings.appName||'Working Life')+' 2.0';
-}
-function renderCalendar(){let y=calDate.getFullYear(),m=calDate.getMonth();$('monthLabel').textContent=calDate.toLocaleDateString(undefined,{month:'long',year:'numeric'});let g=$('calendar');g.innerHTML='';['S','M','T','W','T','F','S'].forEach(x=>{let b=document.createElement('b');b.textContent=x;g.append(b)});let first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();for(let i=0;i<first;i++)g.append(document.createElement('span'));for(let d=1;d<=days;d++){let key=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`,b=document.createElement('button');b.textContent=d;b.className=(key===today()?'today ':'')+((data.tasks.some(x=>x.date===key)||data.schedules.some(x=>x.date===key))?'marked':'');b.onclick=()=>{selectedDate=key;renderCalendarSelection()};g.append(b)}}
-function renderCalendarSelection(){$('selectedDateTitle').textContent=fmt(selectedDate);let a=[...data.tasks.filter(x=>x.date===selectedDate).map(x=>({label:'Task',text:x.text})),...data.schedules.filter(x=>x.date===selectedDate).map(x=>({label:'Schedule',text:x.time+' · '+x.title}))];$('selectedItems').innerHTML=a.length?a.map(x=>`<div class="item"><span class="tag">${x.label}</span><div>${escapeHtml(x.text)}</div></div>`).join(''):'<div class="empty">No saved items for this date.</div>'}
-$('prevMonth').onclick=()=>{calDate.setMonth(calDate.getMonth()-1);renderCalendar()};$('nextMonth').onclick=()=>{calDate.setMonth(calDate.getMonth()+1);renderCalendar()};
-function bindForm(id,fn){$(id).onsubmit=e=>{e.preventDefault();fn();e.target.reset();save()}}
-bindForm('taskForm',()=>addItem('tasks',{text:$('taskText').value,date:$('taskDate').value,priority:$('taskPriority').value,done:false}));
-bindForm('scheduleForm',()=>addItem('schedules',{title:$('scheduleTitle').value,date:$('scheduleDate').value,time:$('scheduleTime').value}));
-bindForm('moneyForm',()=>addItem('transactions',{title:$('moneyTitle').value,type:$('moneyType').value,amount:Number($('moneyAmount').value),date:$('moneyDate').value}));
-bindForm('noteForm',()=>addItem('notes',{title:$('noteTitle').value,body:$('noteBody').value}));
-bindForm('verseForm',()=>addItem('verses',{ref:$('verseRef').value,text:$('verseText').value}));
-bindForm('goalForm',()=>addItem('goals',{text:$('goalText').value,date:$('goalDate').value}));
-bindForm('savingForm',()=>addItem('savings',{name:$('savingGoal').value,target:Number($('savingTarget').value),amount:Number($('savingAmount').value)}));
-bindForm('habitForm',()=>addItem('habits',{text:$('habitText').value,date:today()}));
-bindForm('reminderForm',()=>addItem('reminders',{text:$('reminderText').value,date:$('reminderDate').value}));
-function loadJournal(){let d=$('journalDate').value||today();$('journalDate').value=d;$('journalText').value=data.journals.find(x=>x.date===d)?.text||''}
-$('journalDate').onchange=loadJournal;$('saveJournal').onclick=()=>{let d=$('journalDate').value,old=data.journals.find(x=>x.date===d);if(old)old.text=$('journalText').value;else data.journals.push({id:id(),date:d,text:$('journalText').value});save();alert('Journal saved.')};
-function renderThemes(){let themes=[['bubu','Bubu & Dudu Beach','#b9e4ff','#e98286'],['zen','Japanese Zen','#f3eee4','#65765d'],['luxury','Luxury Editorial','#211811','#c99c55'],['linear','Linear Inspired','#f7f8fa','#5865d9'],['notion','Notion Inspired','#f7f7f5','#777'],['glass','Glassmorphism','#20243d','#a9a1e9'],['cozy','Cozy Pastel','#fbf0e9','#8b68a7']];$('themeList').innerHTML=themes.map(([id,name,bg,accent])=>`<button class="theme ${settings.theme===id?'active':''}" data-theme-choice="${id}"><span class="swatches"><i style="background:${bg}"></i><i style="background:${accent}"></i></span><b>${name}</b></button>`).join('');document.querySelectorAll('[data-theme-choice]').forEach(b=>b.onclick=()=>{settings.theme=b.dataset.themeChoice;document.body.dataset.theme=settings.theme;renderThemes();saveSettings()})}
-function saveSettings(){localStorage.setItem('wl2_settings',JSON.stringify(settings))}
-function setMode(){document.body.classList.toggle('dark',!!settings.dark);saveSettings()}
-$('quickTheme').onclick=()=>{settings.dark=!settings.dark;setMode()};$('modeToggle').onclick=()=>{settings.dark=!settings.dark;setMode()};
-$('saveAppName').onclick=()=>{settings.appName=$('appNameInput').value.trim()||'Working Life';saveSettings();renderAll();alert('App name saved.')};
-$('exportBackup').onclick=()=>{let blob=new Blob([JSON.stringify({version:2,data,settings},null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='working-life-backup.json';a.click();URL.revokeObjectURL(a.href)};
-$('importBackup').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let b=JSON.parse(await f.text());if(!b.data)throw Error();keys.forEach(k=>data[k]=Array.isArray(b.data[k])?b.data[k]:[]);settings=b.settings||{};save();applySettings();alert('Backup restored.')}catch(err){alert('That backup file could not be read.')}};
-function applySettings(){document.body.dataset.theme=settings.theme||'bubu';document.body.classList.toggle('dark',!!settings.dark);$('appNameInput').value=settings.appName||'Working Life';renderThemes()}
-function tick(){ $('clock').textContent=new Date().toLocaleTimeString([],{hour:'numeric',minute:'2-digit'});$('todayLabel').textContent=new Date().toLocaleDateString(undefined,{weekday:'long',month:'long',day:'numeric',year:'numeric'})}
-tick();setInterval(tick,30000);$('taskDate').value=today();$('scheduleDate').value=today();$('moneyDate').value=today();$('journalDate').value=today();applySettings();renderAll();
-</script></body></html>
+<body>
+  <main class="loading-screen" role="status" aria-live="polite" aria-label="Loading Learning Life">
+    <div class="artwork" aria-hidden="true"></div>
+    <section class="loading-status">
+      <p class="loading-label" id="loadingLabel">Getting things ready...</p>
+      <div class="progress-track"
+           id="progressTrack"
+           role="progressbar"
+           aria-label="Loading progress"
+           aria-valuemin="0"
+           aria-valuemax="100"
+           aria-valuenow="0">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <p class="progress-number" id="progressNumber">0%</p>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

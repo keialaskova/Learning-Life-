@@ -1,0 +1,98 @@
+:root {
+  color-scheme: light;
+  --ink: #684033;
+  --sand: #ffe3c4;
+  --track: #fff1df;
+  --track-border: #684033;
+  --pink: #e88b91;
+  --pink-light: #f5b0b2;
+}
+
+* { box-sizing: border-box; }
+html, body { width: 100%; min-height: 100%; margin: 0; }
+body {
+  min-height: 100svh;
+  overflow: hidden;
+  background: linear-gradient(180deg, #9bd4f5 0%, #c7e9f9 36%, #8bcff0 52%, #ffe4c5 75%, #ffdfbd 100%);
+  font-family: "Trebuchet MS", "Arial Rounded MT Bold", system-ui, sans-serif;
+  color: var(--ink);
+}
+.loading-screen {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  min-height: 100svh;
+  padding: 0 22px max(7vh, 34px);
+  isolation: isolate;
+}
+.artwork {
+  position: absolute;
+  z-index: -1;
+  inset: 0 0 auto;
+  height: min(78svh, 880px);
+  background-image: url("assets/loading-artwork.webp");
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: 100% auto;
+}
+/* A soft sand-colored blend joins the artwork to the live progress area. */
+.loading-screen::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 67% 0 0;
+  background: linear-gradient(180deg, rgba(255, 226, 196, 0) 0%, #ffe3c4 25%, #ffdfbd 100%);
+}
+.loading-status {
+  width: min(74%, 430px);
+  margin: 0 auto 1.5vh;
+  text-align: center;
+}
+.loading-label {
+  margin: 0 0 18px;
+  color: var(--ink);
+  font-size: clamp(19px, 4.4vw, 27px);
+  font-weight: 800;
+  letter-spacing: .01em;
+  text-shadow: 0 1px 0 rgba(255,255,255,.5);
+}
+.progress-track {
+  width: 100%;
+  height: clamp(28px, 5.7vw, 40px);
+  padding: 4px;
+  overflow: hidden;
+  border: 3px solid var(--track-border);
+  border-radius: 999px;
+  background: var(--track);
+  box-shadow: 0 2px 0 rgba(104,64,51,.12), inset 0 1px 2px rgba(104,64,51,.08);
+}
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #e88b91, #f3a5a8);
+  transition: width 140ms ease-out;
+}
+.progress-number {
+  margin: 9px 0 0;
+  min-height: 1em;
+  font-size: 13px;
+  font-weight: 700;
+  opacity: .72;
+}
+.loading-screen.is-ready .loading-label { color: #6a9d75; }
+@media (min-aspect-ratio: 3/4) {
+  .artwork { height: 83svh; background-size: auto 100%; }
+  .loading-status { margin-bottom: 3vh; }
+}
+@media (max-height: 620px) {
+  .loading-screen { padding-bottom: max(4vh, 18px); }
+  .artwork { height: 72svh; background-size: auto 100%; }
+  .loading-label { margin-bottom: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
