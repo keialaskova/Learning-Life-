@@ -1,8 +1,15 @@
-Learning Life — Welcome Screen v2
+LEARNING LIFE — DASHBOARD BUILD 1
 
-Upload index.html and the assets folder together to the GitHub Pages repository root.
-Do not rename or move assets/welcome-art.jpg.
+This is a fresh standalone dashboard build, not the old Learning Life codebase.
 
-The page uses a portrait design. On portrait phones it fills the viewport. On landscape tablets it keeps the portrait composition centered and fills the side areas with a blurred version of the same beach artwork rather than blank blue bars.
+Included:
+- Responsive Learning Life dashboard layout for mobile and tablet
+- 16 individual transparent PNG stickers from LearningLife_Individual_Stickers.zip
+- Bubu & Dudu cooking video in the dashboard, configured to autoplay muted, loop, and play inline
+- Daily greeting/date/time and working task checkboxes/count
+- Bottom navigation visual shell
 
-The name field is a real HTML input layered over the printed placeholder area, so there is only one visible placeholder. The name is stored locally in the browser as learningLifeUserName. The Continue action currently shows a confirmation overlay; it is not yet connected to the main app.
+To test: open index.html in a browser or upload the folder contents to the GitHub Pages repository.
+
+Autoplay with sound is blocked by many mobile browsers, so the video starts muted. The sound button lets the user enable audio.
+This build is a front-end dashboard prototype; navigation destinations and data persistence are not yet connected.

@@ -1,308 +1,41 @@
 <!doctype html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="theme-color" content="#a9d9f4">
-<title>Welcome to Learning Life</title>
-<style>
-:root{--brown:#56372d;--pink:#d97873;--cream:#fff9ef;--line:#dfc7b4}
-*{box-sizing:border-box}
-html,body{margin:0;width:100%;min-height:100%;}
-body{min-height:100svh;overflow:hidden;background:#f6dfc8;font-family:ui-rounded,"Trebuchet MS",system-ui,sans-serif;color:var(--brown)}
-.stage{position:fixed;inset:0;display:grid;place-items:center;isolation:isolate;overflow:hidden;background:#a9d9f4}
-.stage::before{content:"";position:absolute;inset:-35px;background:url("assets/welcome-art.jpg") center 48%/cover no-repeat;filter:blur(22px) brightness(.9);transform:scale(1.08);z-index:-2}
-.stage::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(255,244,228,.22),rgba(255,244,228,.04),rgba(255,244,228,.22));z-index:-1}
-.screen{position:relative;width:min(100vw,calc(100svh * .558));height:min(100svh,calc(100vw * 1.792));aspect-ratio:857/1536;overflow:hidden;background:#fbe6d1;flex:none;box-shadow:0 12px 45px rgba(70,49,39,.17)}
-.artwork{display:block;width:100%;height:100%;object-fit:fill;user-select:none;-webkit-user-drag:none;pointer-events:none}
-/* Replace the text baked into the reference artwork with one real, accessible input. */
-.name-field{position:absolute;left:16.1%;top:54.9%;width:67.8%;height:7.65%;display:flex;align-items:center;gap:3%;padding:0 4.8%;border:2px solid var(--line);border-radius:clamp(15px,3vw,28px);background:var(--cream);box-shadow:0 2px 0 rgba(112,77,58,.08)}
-.person-icon{width:8%;height:54%;flex:none;color:#b39b89}
-#userName{width:100%;min-width:0;height:100%;border:0;outline:0;background:transparent;color:var(--brown);font:600 clamp(13px,2.5vw,22px)/1.2 ui-rounded,"Trebuchet MS",system-ui,sans-serif;padding:0}
-#userName::placeholder{color:#a99b8e;opacity:1;font-weight:500}
-.name-field:focus-within{border-color:var(--pink);box-shadow:0 0 0 3px rgba(217,120,115,.18)}
-#continueButton{position:absolute;left:25.3%;top:66.1%;width:49.5%;height:7.5%;border:0;border-radius:999px;background:transparent;cursor:pointer;-webkit-tap-highlight-color:transparent}
-#continueButton:focus-visible{outline:4px solid #8b5141;outline-offset:4px}
-.error{position:absolute;top:73.8%;left:12%;width:76%;margin:0;text-align:center;color:#8b3f3a;font-size:clamp(11px,1.8vw,15px);font-weight:700;text-shadow:0 1px 2px #fff}
-.confirmation{position:absolute;inset:0;display:grid;place-items:center;padding:8%;background:rgba(255,239,222,.97)}
-.confirmation[hidden]{display:none}
-.confirmation-card{width:100%;padding:28px 22px;border:2px solid #d9bda7;border-radius:28px;background:#fff8e9;color:var(--brown);text-align:center;box-shadow:0 8px 24px rgba(91,57,43,.12)}
-.hello{margin:0 0 10px;font-size:clamp(22px,5vw,34px);font-weight:800}
-.confirmation-card h1{margin:0 0 12px;font-size:clamp(28px,7vw,46px);overflow-wrap:anywhere}
-.confirmation-card p:not(.hello){font-size:clamp(15px,3.5vw,20px)}
-#editName{margin-top:12px;padding:12px 22px;border:0;border-radius:999px;background:var(--pink);color:white;font-size:16px;font-weight:700}
-.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-@media (orientation:landscape) and (min-width:700px){.screen{height:100svh;width:auto;max-width:100vw}.stage::before{background-position:center 54%;filter:blur(26px) brightness(.82)}}
-@media (max-height:500px) and (orientation:landscape){.screen{height:100svh;width:auto}}
-@media (prefers-reduced-motion:no-preference){.screen{animation:arrive .45s ease-out both}@keyframes arrive{from{opacity:.7;transform:scale(.985)}to{opacity:1;transform:scale(1)}}}
-
-/* HOME DASHBOARD — first screen build; video intentionally not added yet */
-.home-dashboard[hidden]{display:none}
-.home-dashboard{position:absolute;inset:0;overflow-y:auto;overflow-x:hidden;background:linear-gradient(180deg,#a9d9f4 0 18%,#ffe4c8 18% 100%);color:#57392e;scrollbar-width:none;padding-bottom:88px}
-.home-dashboard::-webkit-scrollbar{display:none}
-.home-top{position:relative;min-height:168px;padding:24px 22px 20px;background:linear-gradient(180deg,#a7d8f4 0%,#c9eafa 62%,#f8d9b8 63%,#ffe8cf 100%);border-bottom:5px solid #f3d4ae;overflow:hidden}
-.home-top:before,.home-top:after{content:"";position:absolute;border-radius:50%;background:rgba(255,255,255,.72);filter:blur(1px)}
-.home-top:before{width:92px;height:32px;right:28%;top:30px;box-shadow:18px -9px 0 -5px rgba(255,255,255,.8)}
-.home-top:after{width:68px;height:25px;left:9%;top:63px}
-.home-brand{position:relative;z-index:1;font-size:clamp(23px,5vw,30px);font-weight:900;letter-spacing:-.7px;text-shadow:0 2px #fff}
-.home-brand span{color:#df817e}
-.home-date{position:relative;z-index:1;display:inline-flex;align-items:center;gap:8px;margin-top:25px;padding:9px 14px;border-radius:999px;background:rgba(255,250,241,.88);font-size:14px;font-weight:700}
-.home-mascots{position:absolute;right:15px;bottom:4px;font-size:42px;filter:drop-shadow(0 2px 0 #fff)}
-.home-content{padding:20px 18px 22px;background:linear-gradient(180deg,#ffe9d7,#fff0e9 65%,#ffe6cc)}
-.home-greeting{margin:0 0 5px;font-size:clamp(23px,5.5vw,30px);font-weight:900;line-height:1.2}
-.home-subtitle{margin:0 0 18px;font-size:15px;line-height:1.45;color:#76574a}
-.home-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:16px 0}
-.home-stat{min-height:104px;border:1.5px solid #e9c9c4;border-radius:22px;padding:12px 7px;text-align:center;box-shadow:0 3px 0 rgba(116,75,55,.06)}
-.home-stat:nth-child(1){background:#ffe0e5}.home-stat:nth-child(2){background:#f5e5f0}.home-stat:nth-child(3){background:#fff0cf}
-.home-stat .emoji{display:block;font-size:25px;margin-bottom:4px}
-.home-stat strong{display:block;font-size:25px;line-height:1.1}
-.home-stat span:last-child{font-size:13px;font-weight:700}
-.home-panel{background:rgba(255,252,246,.94);border:1.5px solid #e7cfc1;border-radius:25px;padding:15px 15px 13px;margin-top:14px;box-shadow:0 4px 12px rgba(106,72,54,.06)}
-.home-panel-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
-.home-panel-heading h2{font-size:19px;margin:0;font-weight:900}
-.home-add{width:34px;height:34px;border:0;border-radius:50%;background:#f5dce0;color:#8b4f47;font-size:23px;line-height:1;cursor:pointer}
-.home-task{display:flex;align-items:center;gap:11px;padding:11px 2px;border-top:1px solid #f0e1d8;font-size:15px;font-weight:700}
-.home-task input{appearance:none;width:22px;height:22px;border:2px solid #a98b7a;border-radius:7px;background:#fff;flex:none}
-.home-task input:checked{background:#65b982;border-color:#65b982}
-.home-task input:checked:after{content:"✓";display:block;color:#fff;text-align:center;font-weight:900;line-height:18px}
-.home-task.done span{text-decoration:line-through;opacity:.55}
-.home-empty{padding:12px 0;color:#987f70;font-size:14px}
-.home-bottom{position:sticky;bottom:0;display:grid;grid-template-columns:repeat(4,1fr);gap:4px;padding:9px 8px calc(9px + env(safe-area-inset-bottom));background:rgba(255,241,226,.97);border-top:1px solid #e6cfc0;backdrop-filter:blur(10px)}
-.home-nav{border:0;background:transparent;color:#51382e;border-radius:18px;padding:7px 2px 5px;display:flex;flex-direction:column;align-items:center;gap:2px;font-family:inherit;font-size:12px;font-weight:700;line-height:1.15;cursor:pointer}
-.home-nav .nav-icon{font-size:24px;line-height:1.1}
-.home-nav.active{background:#e88786;color:white}
-.home-nav:focus-visible,.home-add:focus-visible{outline:3px solid #805044;outline-offset:2px}
-.home-toast{position:fixed;left:50%;bottom:88px;transform:translateX(-50%);padding:9px 14px;border-radius:999px;background:#654438;color:white;font-size:13px;z-index:5;white-space:nowrap}
-@media(min-width:700px){.home-dashboard{width: min(100%,560px);left:50%;transform:translateX(-50%);box-shadow:0 0 35px rgba(75,60,50,.14)}}
-
-
-/* Responsive correction based on tablet screenshot */
-.home-dashboard{min-height:100dvh;display:flex;flex-direction:column;padding-bottom:0}
-.home-dashboard[hidden]{display:none}
-.home-content{width:100%;max-width:1080px;margin:0 auto;box-sizing:border-box;flex:1}
-.home-bottom{width:100%;box-sizing:border-box;margin-top:auto}
-@media(min-width:700px){
- .home-dashboard{width:100%;max-width:none;left:0;transform:none;box-shadow:none}
- .home-top{min-height:190px;padding:30px clamp(28px,5vw,72px) 22px}
- .home-brand{font-size:34px}
- .home-mascots{font-size:54px;right:clamp(28px,5vw,72px)}
- .home-content{padding:28px clamp(28px,5vw,72px) 32px}
- .home-greeting{font-size:34px}
- .home-subtitle{font-size:17px}
- .home-stats{gap:18px;margin:22px 0}
- .home-stat{min-height:125px;padding:17px 12px}
- .home-stat .emoji{font-size:30px}
- .home-stat strong{font-size:30px}
- .home-stat span:last-child{font-size:15px}
- .home-panel{padding:20px 22px;margin-top:20px}
- .home-panel-heading h2{font-size:22px}
- .home-task{font-size:17px;padding:14px 4px}
- .home-task input{width:24px;height:24px}
- .home-bottom{padding:12px 8px calc(12px + env(safe-area-inset-bottom))}
- .home-nav{font-size:14px;padding:9px 4px}
- .home-nav .nav-icon{font-size:27px}
-}
-@media(min-width:1100px){
- .home-content{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);column-gap:22px;align-content:start}
- .home-greeting,.home-subtitle,.home-stats{grid-column:1/-1}
- .home-panel{margin-top:8px}
-}
-
-
-/* HOME LAYOUT REFINEMENT — keep the reference's single-column, mobile-first flow */
-.stage:has(.home-dashboard:not([hidden])){display:block;background:linear-gradient(180deg,#a9d9f4 0%,#d5edfa 36%,#fbe2c6 100%)}
-.stage:has(.home-dashboard:not([hidden]))::before{filter:blur(22px) brightness(.94);background-position:center 38%;}
-.stage:has(.home-dashboard:not([hidden]))::after{background:linear-gradient(180deg,rgba(165,216,245,.15),rgba(255,231,208,.3))}
-.home-dashboard{position:absolute;inset:0;width:100%;max-width:none;left:0;transform:none;min-height:100dvh;height:100dvh;display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;padding:0 0 env(safe-area-inset-bottom);background:linear-gradient(180deg,#a9d9f4 0%,#d7effa 22%,#ffe7d2 22%,#fff0e8 78%,#ffe4c4 100%);box-shadow:none}
-.home-dashboard[hidden]{display:none}
-.home-top{flex:none;min-height:150px;padding:22px clamp(18px,4vw,42px) 18px;background:linear-gradient(180deg,rgba(159,213,245,.97) 0%,rgba(204,234,249,.98) 70%,#f6d8b8 71%,#ffe8d0 100%);border-bottom:4px solid #f0d2ae}
-.home-top:before{width:86px;height:30px;right:25%;top:27px}
-.home-top:after{width:62px;height:22px;left:8%;top:58px}
-.home-brand{font-size:clamp(25px,4vw,34px)}
-.home-date{margin-top:20px;font-size:clamp(13px,1.7vw,16px)}
-.home-mascots{font-size:clamp(42px,6vw,58px);right:clamp(16px,4vw,42px);bottom:2px}
-.home-content{width:min(100%,780px);max-width:780px;flex:1 0 auto;margin:0 auto;padding:24px clamp(18px,3.8vw,34px) 28px;display:block;background:linear-gradient(180deg,rgba(255,233,215,.96),rgba(255,240,233,.98) 68%,rgba(255,230,204,.96))}
-.home-greeting{font-size:clamp(25px,3.4vw,34px);margin:0 0 6px}
-.home-subtitle{font-size:clamp(15px,1.8vw,18px);margin-bottom:16px}
-.home-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(8px,1.5vw,16px);margin:18px 0 20px}
-.home-stat{min-height:112px;padding:14px 8px;border-radius:22px}
-.home-stat .emoji{font-size:clamp(25px,3vw,32px)}
-.home-stat strong{font-size:clamp(24px,3vw,31px)}
-.home-stat span:last-child{font-size:clamp(13px,1.6vw,16px)}
-.home-panel{margin-top:14px;padding:16px clamp(15px,2.5vw,22px);border-radius:24px}
-.home-panel-heading h2{font-size:clamp(19px,2.4vw,23px)}
-.home-task{font-size:clamp(15px,1.9vw,18px);padding:13px 3px}
-.home-task input{width:23px;height:23px}
-.home-bottom{position:sticky;z-index:3;flex:none;bottom:0;width:100%;margin-top:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding:9px 8px calc(9px + env(safe-area-inset-bottom));background:rgba(255,241,226,.98);border-top:1px solid #e6cfc0}
-.home-nav{font-size:clamp(12px,1.6vw,15px);min-height:56px}
-.home-nav .nav-icon{font-size:clamp(23px,2.6vw,29px)}
-/* Tablet landscape: center the same vertical app canvas; do not switch to a two-column dashboard. */
-@media(min-width:700px){
- .home-dashboard{width:100%;}
- .home-content{width:min(100%,780px);}
- .home-top{min-height:160px;}
-}
-@media(min-width:1100px){.home-content{display:block;grid-template-columns:none;}}
-@media(max-height:560px) and (orientation:landscape){
- .home-top{min-height:120px;padding-top:14px}
- .home-date{margin-top:10px}
- .home-content{padding-top:16px}
- .home-stat{min-height:90px}
-}
-
-
-/* v4 tablet sizing correction */
-.stage:has(.home-dashboard:not([hidden])){background:linear-gradient(180deg,#a8d9f5 0%,#d8eff9 24%,#ffe8d5 24%,#fff0e8 78%,#ffe5c8 100%) !important}
-.stage:has(.home-dashboard:not([hidden]))::before,.stage:has(.home-dashboard:not([hidden]))::after{display:none !important}
-.home-dashboard{background:linear-gradient(180deg,#a8d9f5 0%,#d8eff9 22%,#ffe8d5 22%,#fff0e8 78%,#ffe5c8 78%,#ffe5c8 100%) !important}
-.home-top{min-height:clamp(170px,22vh,245px) !important;padding:clamp(24px,4vh,42px) clamp(22px,5vw,76px) 22px !important}
-.home-brand{font-size:clamp(30px,3.4vw,46px) !important}
-.home-date{font-size:clamp(14px,1.25vw,18px) !important;padding:11px 17px !important}
-.home-mascots{font-size:clamp(48px,6vw,76px) !important;right:clamp(22px,5vw,76px) !important}
-.home-content{width:min(94%,1240px) !important;max-width:1240px !important;padding:clamp(24px,3.2vw,46px) clamp(20px,3vw,42px) 34px !important;background:transparent !important}
-.home-greeting{font-size:clamp(28px,3vw,42px) !important;margin-bottom:8px !important}
-.home-subtitle{font-size:clamp(17px,1.5vw,21px) !important;margin-bottom:24px !important}
-.home-stats{gap:clamp(12px,1.4vw,20px) !important;margin:22px 0 26px !important}
-.home-stat{min-height:clamp(120px,14vh,164px) !important;padding:18px 12px !important;border-radius:26px !important}
-.home-stat .emoji{font-size:clamp(30px,2.7vw,40px) !important}
-.home-stat strong{font-size:clamp(30px,2.7vw,40px) !important}
-.home-stat span:last-child{font-size:clamp(15px,1.35vw,19px) !important}
-.home-panel{padding:clamp(18px,2vw,28px) !important;margin-top:18px !important;border-radius:28px !important}
-.home-panel-heading h2{font-size:clamp(22px,2vw,28px) !important}
-.home-add{width:42px !important;height:42px !important;font-size:28px !important}
-.home-task{font-size:clamp(17px,1.5vw,21px) !important;padding:15px 4px !important;gap:14px !important}
-.home-task input{width:26px !important;height:26px !important}
-.home-bottom{padding:12px 5vw calc(12px + env(safe-area-inset-bottom)) !important;gap:12px !important}
-.home-nav{font-size:clamp(14px,1.3vw,18px) !important;padding:10px 6px 8px !important;gap:5px !important}
-.home-nav .nav-icon{font-size:clamp(26px,2.4vw,34px) !important}
-@media(max-width:699px){
- .home-content{width:100% !important;padding:20px 18px 26px !important}
- .home-top{min-height:158px !important;padding:22px 20px 18px !important}
- .home-brand{font-size:29px !important}.home-mascots{font-size:44px !important}
- .home-stat{min-height:104px !important;padding:12px 7px !important}
- .home-stat strong{font-size:25px !important}.home-stat .emoji{font-size:25px !important}
- .home-stat span:last-child{font-size:13px !important}
- .home-greeting{font-size:25px !important}.home-subtitle{font-size:15px !important}
- .home-panel-heading h2{font-size:19px !important}
- .home-task{font-size:15px !important;padding:11px 2px !important}
- .home-bottom{padding:9px 8px calc(9px + env(safe-area-inset-bottom)) !important}
- .home-nav{font-size:12px !important;padding:7px 2px 5px !important}
- .home-nav .nav-icon{font-size:24px !important}
-}
-
-</style>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#a9def7"><meta name="description" content="Learning Life — your daily life companion">
+<title>Learning Life</title><link rel="stylesheet" href="styles.css">
 </head>
 <body>
-<div class="stage">
-<main class="screen" aria-label="Learning Life welcome screen">
-<img class="artwork" src="assets/welcome-art.jpg" alt="Bubu and Dudu welcoming you on a beach">
-<form id="welcomeForm" autocomplete="on">
-<label class="visually-hidden" for="userName">Your name</label>
-<div class="name-field">
-<svg class="person-icon" viewBox="0 0 32 40" fill="none" aria-hidden="true"><circle cx="16" cy="10" r="7" stroke="currentColor" stroke-width="3.2"/><path d="M3.5 37v-5.5C3.5 23.8 9.1 19 16 19s12.5 4.8 12.5 12.5V37" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/></svg>
-<input id="userName" name="name" type="text" maxlength="32" placeholder="Enter your name" autocomplete="given-name" required>
-</div>
-<button id="continueButton" type="submit" aria-label="Continue to Learning Life"></button>
-<p class="error" id="errorMessage" role="alert" aria-live="polite"></p>
-</form>
-<section class="confirmation" id="confirmation" hidden aria-live="polite"><div class="confirmation-card"><p class="hello">Nice to meet you! ♡</p><h1 id="personalGreeting"></h1><p>Your Learning Life is ready to begin.</p><button type="button" id="editName">Change name</button></div></section>
-</main>
-
-<section class="home-dashboard" id="homeDashboard" hidden aria-label="Learning Life home dashboard">
-  <header class="home-top">
-    <div class="home-brand">Learning Life <span>♡</span></div>
-    <div class="home-date"><span aria-hidden="true">▣</span><span id="homeDate"></span></div>
-    <div class="home-mascots" aria-hidden="true">🐼 🐻</div>
+<div class="app-shell">
+  <header class="top-banner">
+    <div class="status-row"><span id="clock">6:14 AM</span><span class="status-icons">● ◉ ▰</span></div>
+    <div class="brand-row"><h1>Learning Life <span>♡</span></h1><img class="sticker header-bears" src="assets/stickers/01_bubu_dudu_hug.png" alt="Bubu and Dudu"></div>
+    <div class="date-pill"><span>▣</span><span id="todayDate">Sat, Nov 28, 2026</span></div>
+    <img class="sticker starfish" src="assets/stickers/12_starfish_and_shell.png" alt="">
+    <img class="sticker beach-plants" src="assets/stickers/13_beach_plants_and_stones.png" alt="">
   </header>
-  <main class="home-content">
-    <h1 class="home-greeting" id="homeGreeting">Good day! ♡</h1>
-    <p class="home-subtitle">A little progress each day adds up!</p>
-    <div class="home-stats" aria-label="Today's progress">
-      <div class="home-stat"><span class="emoji" aria-hidden="true">☑️</span><strong id="taskProgress">0/2</strong><span>Tasks</span></div>
-      <div class="home-stat"><span class="emoji" aria-hidden="true">🗓️</span><strong id="scheduleCount">0</strong><span>Schedule</span></div>
-      <div class="home-stat"><span class="emoji" aria-hidden="true">🎯</span><strong id="goalCount">0</strong><span>Goals</span></div>
-    </div>
-    <section class="home-panel">
-      <div class="home-panel-heading"><h2>♡ Today's Tasks</h2><button class="home-add" id="addHomeTask" type="button" aria-label="Add task">+</button></div>
-      <div id="homeTaskList">
-        <label class="home-task"><input type="checkbox"><span>Finish report</span></label>
-        <label class="home-task"><input type="checkbox"><span>Buy groceries</span></label>
-      </div>
+  <main class="dashboard">
+    <section class="greeting"><div><h2 id="greeting">Good morning, Sky! <span>♡</span></h2><p>A little progress each day<br>adds up!</p></div><img class="sticker greeting-bears" src="assets/stickers/01_bubu_dudu_hug.png" alt="Bubu and Dudu together"></section>
+    <section class="video-card" aria-label="Bubu and Dudu cooking video"><video id="welcomeVideo" autoplay muted loop playsinline preload="auto" poster="assets/stickers/07_bears_cooking.png"><source src="assets/video/bubu-dudu-cooking.mp4" type="video/mp4"></video><button class="sound-toggle" id="soundToggle" aria-label="Turn sound on">♪</button></section>
+    <section class="stats-grid" aria-label="Daily overview">
+      <article class="stat-card tasks-stat"><div class="stat-icon">☑</div><div class="stat-label">Tasks</div><strong id="taskCount">0/2</strong></article>
+      <article class="stat-card schedule-stat"><div class="stat-icon">▦</div><div class="stat-label">Schedule</div><strong>2</strong></article>
+      <article class="stat-card goals-stat"><div class="stat-icon">◎</div><div class="stat-label">Goals</div><strong>1</strong></article>
     </section>
-
+    <section class="tasks-card">
+      <div class="section-heading"><h3><span>♧</span> Today's Tasks</h3><button class="small-add" aria-label="Add task">+</button></div>
+      <label class="task-row"><input type="checkbox" class="task-check"><span>Finish report</span></label>
+      <label class="task-row"><input type="checkbox" class="task-check"><span>Buy groceries</span></label>
+    </section>
+    <section class="reminder-card"><div><h3>Today's reminder</h3><p>Take things one step at a time. You are making progress.</p></div><span>🌷</span></section>
+    <img class="sticker lower-decoration" src="assets/stickers/08_bears_sandcastle.png" alt="Bubu and Dudu building a sandcastle">
   </main>
-  <nav class="home-bottom" aria-label="Main navigation">
-    <button class="home-nav active" type="button" data-home-tab="Home"><span class="nav-icon">⌂</span><span>Home</span></button>
-    <button class="home-nav" type="button" data-home-tab="Calendar"><span class="nav-icon">▦</span><span>Calendar</span></button>
-    <button class="home-nav" type="button" data-home-tab="Money"><span class="nav-icon">＄</span><span>Money</span></button>
-    <button class="home-nav" type="button" data-home-tab="More"><span class="nav-icon">▦</span><span>More</span></button>
+  <nav class="bottom-nav" aria-label="Main navigation">
+    <button class="nav-item active"><span>⌂</span><b>Home</b></button>
+    <button class="nav-item"><span>▦</span><b>Calendar</b></button>
+    <button class="nav-item"><span>＄</span><b>Money</b></button>
+    <button class="nav-item"><span>▦</span><b>More</b></button>
   </nav>
-</section>
-
 </div>
-<script>
-(()=>{
-const form=document.getElementById('welcomeForm');
-const input=document.getElementById('userName');
-const error=document.getElementById('errorMessage');
-const confirmation=document.getElementById('confirmation');
-const greeting=document.getElementById('personalGreeting');
-const edit=document.getElementById('editName');
-const dashboard=document.getElementById('homeDashboard');
-const artwork=document.querySelector('.artwork');
-const dateNode=document.getElementById('homeDate');
-const homeGreeting=document.getElementById('homeGreeting');
-const taskList=document.getElementById('homeTaskList');
-const progress=document.getElementById('taskProgress');
-
-try{const saved=localStorage.getItem('learningLifeUserName');if(saved)input.value=saved;}catch(_){}
-
-function updateProgress(){
- const boxes=[...taskList.querySelectorAll('input[type="checkbox"]')];
- const done=boxes.filter(x=>x.checked).length;
- progress.textContent=done+'/'+boxes.length;
- boxes.forEach(box=>box.closest('.home-task').classList.toggle('done',box.checked));
-}
-function showHome(name){
- form.hidden=true;
- artwork.hidden=true;
- confirmation.hidden=true;
- dashboard.hidden=false;
- const safeName=(name||'there').trim();
- homeGreeting.textContent='Good day, '+safeName+'! ♡';
- const now=new Date();
- dateNode.textContent=new Intl.DateTimeFormat(undefined,{weekday:'short',month:'short',day:'numeric',year:'numeric'}).format(now);
- updateProgress();
-}
-form.addEventListener('submit',e=>{
- e.preventDefault();
- const name=input.value.trim().replace(/\s+/g,' ');
- if(!name){error.textContent='Please enter your name first ♡';input.focus();return;}
- error.textContent='';
- try{localStorage.setItem('learningLifeUserName',name);}catch(_){}
- showHome(name);
-});
-edit.addEventListener('click',()=>{confirmation.hidden=true;input.focus();});
-input.addEventListener('input',()=>{error.textContent='';});
-taskList.addEventListener('change',updateProgress);
-document.getElementById('addHomeTask').addEventListener('click',()=>{
- const task=prompt('What task would you like to add?');
- if(!task||!task.trim())return;
- const label=document.createElement('label');label.className='home-task';
- const box=document.createElement('input');box.type='checkbox';
- const span=document.createElement('span');span.textContent=task.trim();
- label.append(box,span);taskList.append(label);updateProgress();
-});
-document.querySelectorAll('[data-home-tab]').forEach(btn=>btn.addEventListener('click',()=>{
- const tab=btn.dataset.homeTab;
- if(tab==='Home'){
-   document.querySelectorAll('[data-home-tab]').forEach(x=>x.classList.toggle('active',x===btn));
-   return;
- }
- // Do not falsely mark an unbuilt page as active.
- alert(tab+' page is not built yet. Home remains selected.');
-}));
-})();
-</script>
-</body>
-</html>
+<script src="app.js"></script>
+</body></html>

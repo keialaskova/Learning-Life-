@@ -1,32 +1,18 @@
 (() => {
-  const form = document.getElementById('welcomeForm');
-  const input = document.getElementById('userName');
-  const error = document.getElementById('errorMessage');
-  const confirmation = document.getElementById('confirmation');
-  const greeting = document.getElementById('personalGreeting');
-  const editName = document.getElementById('editName');
-
-  try {
-    const savedName = localStorage.getItem('learningLifeUserName');
-    if (savedName) input.value = savedName;
-  } catch (_) { /* Storage may be unavailable in private browsing. */ }
-
-  form.addEventListener('submit', (event) => {
-    event.preventDefault();
-    const name = input.value.trim().replace(/\s+/g, ' ');
-    if (!name) {
-      error.textContent = 'Please enter your name first ♡';
-      input.focus();
-      return;
-    }
-    error.textContent = '';
-    try { localStorage.setItem('learningLifeUserName', name); } catch (_) {}
-    greeting.textContent = `Hello, ${name}! ♡`;
-    confirmation.hidden = false;
-  });
-
-  editName.addEventListener('click', () => {
-    confirmation.hidden = true;
-    input.focus();
-  });
+ const date = new Date();
+ const dateEl = document.getElementById('todayDate');
+ dateEl.textContent = new Intl.DateTimeFormat('en-US',{weekday:'short',month:'short',day:'numeric',year:'numeric'}).format(date);
+ const clock = document.getElementById('clock');
+ function tick(){clock.textContent=new Intl.DateTimeFormat('en-US',{hour:'numeric',minute:'2-digit'}).format(new Date());}
+ tick(); setInterval(tick,30000);
+ const h=new Date().getHours();
+ document.getElementById('greeting').innerHTML=(h<12?'Good morning, Sky!':h<18?'Good afternoon, Sky!':'Good evening, Sky!')+' <span>♡</span>';
+ const checks=[...document.querySelectorAll('.task-check')];
+ const count=document.getElementById('taskCount');
+ function update(){count.textContent=checks.filter(x=>x.checked).length+'/'+checks.length;}
+ checks.forEach(x=>x.addEventListener('change',update)); update();
+ const video=document.getElementById('welcomeVideo');
+ const sound=document.getElementById('soundToggle');
+ video.muted=true; video.play().catch(()=>{});
+ sound.addEventListener('click',()=>{video.muted=!video.muted;sound.textContent=video.muted?'♪':'♫';sound.setAttribute('aria-label',video.muted?'Turn sound on':'Mute video');if(!video.paused) return;video.play().catch(()=>{});});
 })();
