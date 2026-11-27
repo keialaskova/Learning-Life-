@@ -108,6 +108,48 @@ body{min-height:100svh;overflow:hidden;background:#f6dfc8;font-family:ui-rounded
  .home-panel{margin-top:8px}
 }
 
+
+/* HOME LAYOUT REFINEMENT — keep the reference's single-column, mobile-first flow */
+.stage:has(.home-dashboard:not([hidden])){display:block;background:linear-gradient(180deg,#a9d9f4 0%,#d5edfa 36%,#fbe2c6 100%)}
+.stage:has(.home-dashboard:not([hidden]))::before{filter:blur(22px) brightness(.94);background-position:center 38%;}
+.stage:has(.home-dashboard:not([hidden]))::after{background:linear-gradient(180deg,rgba(165,216,245,.15),rgba(255,231,208,.3))}
+.home-dashboard{position:absolute;inset:0;width:100%;max-width:none;left:0;transform:none;min-height:100dvh;height:100dvh;display:flex;flex-direction:column;overflow-y:auto;overflow-x:hidden;padding:0 0 env(safe-area-inset-bottom);background:linear-gradient(180deg,#a9d9f4 0%,#d7effa 22%,#ffe7d2 22%,#fff0e8 78%,#ffe4c4 100%);box-shadow:none}
+.home-dashboard[hidden]{display:none}
+.home-top{flex:none;min-height:150px;padding:22px clamp(18px,4vw,42px) 18px;background:linear-gradient(180deg,rgba(159,213,245,.97) 0%,rgba(204,234,249,.98) 70%,#f6d8b8 71%,#ffe8d0 100%);border-bottom:4px solid #f0d2ae}
+.home-top:before{width:86px;height:30px;right:25%;top:27px}
+.home-top:after{width:62px;height:22px;left:8%;top:58px}
+.home-brand{font-size:clamp(25px,4vw,34px)}
+.home-date{margin-top:20px;font-size:clamp(13px,1.7vw,16px)}
+.home-mascots{font-size:clamp(42px,6vw,58px);right:clamp(16px,4vw,42px);bottom:2px}
+.home-content{width:min(100%,780px);max-width:780px;flex:1 0 auto;margin:0 auto;padding:24px clamp(18px,3.8vw,34px) 28px;display:block;background:linear-gradient(180deg,rgba(255,233,215,.96),rgba(255,240,233,.98) 68%,rgba(255,230,204,.96))}
+.home-greeting{font-size:clamp(25px,3.4vw,34px);margin:0 0 6px}
+.home-subtitle{font-size:clamp(15px,1.8vw,18px);margin-bottom:16px}
+.home-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(8px,1.5vw,16px);margin:18px 0 20px}
+.home-stat{min-height:112px;padding:14px 8px;border-radius:22px}
+.home-stat .emoji{font-size:clamp(25px,3vw,32px)}
+.home-stat strong{font-size:clamp(24px,3vw,31px)}
+.home-stat span:last-child{font-size:clamp(13px,1.6vw,16px)}
+.home-panel{margin-top:14px;padding:16px clamp(15px,2.5vw,22px);border-radius:24px}
+.home-panel-heading h2{font-size:clamp(19px,2.4vw,23px)}
+.home-task{font-size:clamp(15px,1.9vw,18px);padding:13px 3px}
+.home-task input{width:23px;height:23px}
+.home-bottom{position:sticky;z-index:3;flex:none;bottom:0;width:100%;margin-top:auto;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));padding:9px 8px calc(9px + env(safe-area-inset-bottom));background:rgba(255,241,226,.98);border-top:1px solid #e6cfc0}
+.home-nav{font-size:clamp(12px,1.6vw,15px);min-height:56px}
+.home-nav .nav-icon{font-size:clamp(23px,2.6vw,29px)}
+/* Tablet landscape: center the same vertical app canvas; do not switch to a two-column dashboard. */
+@media(min-width:700px){
+ .home-dashboard{width:100%;}
+ .home-content{width:min(100%,780px);}
+ .home-top{min-height:160px;}
+}
+@media(min-width:1100px){.home-content{display:block;grid-template-columns:none;}}
+@media(max-height:560px) and (orientation:landscape){
+ .home-top{min-height:120px;padding-top:14px}
+ .home-date{margin-top:10px}
+ .home-content{padding-top:16px}
+ .home-stat{min-height:90px}
+}
+
 </style>
 </head>
 <body>
@@ -147,10 +189,7 @@ body{min-height:100svh;overflow:hidden;background:#f6dfc8;font-family:ui-rounded
         <label class="home-task"><input type="checkbox"><span>Buy groceries</span></label>
       </div>
     </section>
-    <section class="home-panel">
-      <div class="home-panel-heading"><h2>Today's reminder</h2><span aria-hidden="true">🌷</span></div>
-      <p style="margin:0;color:#76574a;font-size:14px;line-height:1.5">Take things one step at a time. You are making progress.</p>
-    </section>
+
   </main>
   <nav class="home-bottom" aria-label="Main navigation">
     <button class="home-nav active" type="button" data-home-tab="Home"><span class="nav-icon">⌂</span><span>Home</span></button>
@@ -215,9 +254,13 @@ document.getElementById('addHomeTask').addEventListener('click',()=>{
  label.append(box,span);taskList.append(label);updateProgress();
 });
 document.querySelectorAll('[data-home-tab]').forEach(btn=>btn.addEventListener('click',()=>{
- document.querySelectorAll('[data-home-tab]').forEach(x=>x.classList.toggle('active',x===btn));
  const tab=btn.dataset.homeTab;
- if(tab!=='Home')alert(tab+' page will be built next.');
+ if(tab==='Home'){
+   document.querySelectorAll('[data-home-tab]').forEach(x=>x.classList.toggle('active',x===btn));
+   return;
+ }
+ // Do not falsely mark an unbuilt page as active.
+ alert(tab+' page is not built yet. Home remains selected.');
 }));
 })();
 </script>
