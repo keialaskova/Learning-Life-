@@ -1,14 +1,24 @@
-LEARNING LIFE — COMPLETE STARTER BUILD 3
+Learning Life — Tasks, Notes & Goals update
 
-This build combines the three screens in the requested order:
-1. Loading screen with Learning Life title, beach artwork, Bubu & Dudu sticker, and animated progress bar.
-2. Welcome/name screen. The name is saved in this browser using localStorage.
-3. Dashboard with the cooking video and the two supplied animated bear MP4s in the header and greeting positions.
+This package contains an updated index.html for the existing Learning Life repository.
+It redesigns the Tasks, Notes, and Goals pages for Theme 7 (Bubu & Dudu Beach) only.
 
-The first visit shows Loading -> Welcome -> Dashboard after the user enters a name. Later visits show Loading -> Dashboard using the saved name. Clearing this site's browser data resets the welcome step.
+Install:
+1. Keep a backup of your current index.html.
+2. Replace the repository's index.html with this file (rename it to index.html).
+3. Do not delete your existing redesign.css, redesign-v30.css, bubu-theme.js, bubu-stickers.js,
+   assets/, or other existing project files.
+4. Commit and push to the same GitHub Pages repository.
+5. Refresh the site after GitHub Pages finishes publishing.
 
-Both character animations and the cooking video are configured for muted autoplay, looping and inline mobile playback. Mobile browsers may restrict autoplay in some situations; videos remain available for user playback.
+Data:
+- Existing tasks and goals are retained in their existing localStorage keys.
+- Existing plain-text Notes are migrated into a Personal note when the new Notes page loads.
+- New Notes use the additional myday_notesEntries key.
+- Task due dates are stored with each task.
 
-This is a front-end prototype. Calendar, Money and More navigation destinations, full task management, and cloud synchronization are not implemented yet.
-
-To publish on GitHub Pages: upload the CONTENTS of this folder to the repository root, preserving the assets folder structure.
+Scope:
+- Only the Bubu & Dudu Theme 7 page styling is changed.
+- Other six themes are not targeted by the new page styles.
+- This is a source update; it has passed JavaScript syntax validation but has not been browser-tested
+  or deployed to GitHub Pages from this chat.
